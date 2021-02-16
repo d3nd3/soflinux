@@ -1,0 +1,134 @@
+//showprint
+echo "2B" | xxd -r -p -seek 0x0011DE69 - SoF-spsv.exe
+
+//spawnwindowx11
+echo "9090909090" | xxd -r -p -seek 0x0006578e - SoF-spsv.exe
+
+//patch load sofrees
+echo "736F66726565532E646C6C00" | xxd -r -p -seek 0x0011ad72 - SoF-spsv.exe
+
+
+//ref_gl.so linux GL_EXTENSIONS overflow
+echo "2020" | xxd -r -p -seek 0x50244 - ref_gl.so
+echo "2020" | xxd -r -p -seek 0x50771 - ref_gl.so
+
+//%X for GL_EXTENSIONS
+echo "2558" | xxd -r -p -seek 0x50244 - ref_gl.so
+echo "2558" | xxd -r -p -seek 0x50771 - ref_gl.so
+// %X for GL_RENDERER
+echo "2558" | xxd -r -p -seek 0x5074a - ref_gl.so
+echo "2558" | xxd -r -p -seek 0x50207 - ref_gl.so
+
+//%s for GL_EXTENSIONS
+echo "2573" | xxd -r -p -seek 0x50244 - ref_gl.so
+echo "2573" | xxd -r -p -seek 0x50771 - ref_gl.so
+
+// SDL GetString for GL_EXTENSIONS
+echo "9090" | xxd -r -p -seek 0x2cd19 - ref_gl.so
+
+
+TRY ALL:
+CL_SendConnectPacket:
+	//protocol 1.07f DOESNT WORK SNEAKY
+	echo "21" | xxd -r -p -seek 0x814b7 - sof-bin
+	//protocol 1.06a DOESNT WORK SNEAKY
+	echo "20" | xxd -r -p -seek 0x814b7 - sof-bin
+CL_HandleChallenge:
+	//protocol 1.07f
+	echo "21" | xxd -r -p -seek 0x7ce4b - sof-bin
+	//1.06
+	echo "20" | xxd -r -p -seek 0x7ce4b - sof-bin
+CL_CheckForResend:
+	//prot 1.07f
+	echo "21" | xxd -r -p -seek 0x7cfd4 - sof-bin
+	echo "20" | xxd -r -p -seek 0x7cfd4 - sof-bin
+
+
+//allow connections only from VERSION 33(1.07f)
+echo "21" | xxd -r -p -seek 0x623de - sof-bin
+
+//serverdata
+echo "21" | xxd -r -p -seek 0x81ab0 - sof-bin
+
+//info
+echo "21" | xxd -r -p -seek 0x619d7 - sof-bin
+
+
+80C943C - 80C6354 - 5
+
+000030E3
+
+//route handleChallenge?
+echo "E3300000" | xxd -r -p -seek 0x7e355 - sof-bin
+@reset echo "DBE6FFFF"
+
+80C943C - 80C511F - 5
+00004318
+18430000
+
+//route handleChallenge2? 
+echo 18430000 | xxd -r -p -seek 0x7d120 - sof-bin
+@reset echo "10F9FFFF"
+
+//fake localhost! no_won pls! @ Server
+echo "E9FB01000090" | xxd -r -p -seek 0x80A9F41
+
+//fake localhost! no_won pls! @ Client
+echo "E9FB01000090" | xxd -r -p -seek 0x80A9F41
+
+//disable cWON_General::Init yet keep no_won 0
+echo "E9E403000090" | xxd -r -p -seek 0x1b160a
+
+
+//disable wonServer ?? seg faults 74 / orig = 75
+echo 74 | xxd -r -p -seek 0x60943 - sof-bin
+echo 74 | xxd -r -p -seek 0x60986 - sof-bin
+
+//disable wonGeneral??
+echo 9090909090 | xxd -r -p -seek 0xd6d2b - sof-bin
+
+//disable wonGeneral:RegisterCommands
+echo 9090909090 | xxd -r -p -seek 0xd6d39 - sof-bin
+
+
+NOT NECESARY:
+	//Disable WON PROCESSING!!
+	echo 01 | xxd -r -p -seek 0x7d036 - sof-bin
+
+	//always init like this ;p
+	echo 86 | xxd -r -p -seek 0x7D024 - sof-bin
+
+
+Force NoWON:
+080C4AE4 - 080C4AB7 - 5 = 00000028
+
+//CLIENT: FORCE! don't look at ugly
+echo e928000000 | xxd -r -p -seek 0x7cab7 - sof-bin
+@reset 0F87BF030000
+
+//SERVER: don't tempt client to use with challenge paramter!
+	//orig = 3
+	echo 03 | xxd -r -p -seek 0x7cbd7 - sof-bin
+	//orig = 4
+	echo 05 | xxd -r -p -seek 0x7cc19 - sof-bin
+	//orig = 2
+	echo 03 | xxd -r -p -seek 0x61dec - sof-bin
+	//orig = 5
+	echo 05 | xxd -r -p -seek 0x61e4a - sof-bin
+	//orig = 5
+	echo 05 | xxd -r -p -seek 0x62145 - sof-bin
+
+//Give us connect please
+echo 85 | xxd -r -p -seek 0x7ccb4 - sof-bin
+
+//Give us challenge xd!!
+//echo 75 | xxd -r -p -seek 0x7cc08 - sofbin
+//NOP instead
+echo 9090909090 | xxd -r -p -seek 0x7cbfe - sofbin
+
+They are stages..
+1 = getchallenge
+2 = challenge with cert
+3 = challenge without cert
+4 = connect with man in middle
+5 = connect without man in middle
