@@ -13,7 +13,9 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 [libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
 ## Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
 [launch_mp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_mp.sh)
+
 [launch_sp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_sp.sh)
+
 [patchit.sh](https://github.com/d3nd3/soflinux/blob/main/patchit.sh)
 
 `chmod +x patchit.sh`
