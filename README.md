@@ -15,6 +15,7 @@
     1. [tips](https://github.com/d3nd3/soflinux/blob/main/README.md#what-helped-me)
     1. [audio](https://github.com/d3nd3/soflinux/blob/main/README.md#lets-talk-about-audio)
     1. [won authentication](https://github.com/d3nd3/soflinux/blob/main/README.md#bypassing-won-lockdown-and-version-incompatibilities)
+ 1. [Credits](https://github.com/d3nd3/soflinux/blob/main/README.md#credits)
 
 ## Motivation
 Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
