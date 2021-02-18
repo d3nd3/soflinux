@@ -9,7 +9,7 @@
 Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
 ## Obtaining
 ### Where can i get SoF linux version?
-[liflg](https://github.com/liflg/sof_1.06a-english_x86/tree/master/data)
+[github.com/liflg](https://github.com/liflg/sof_1.06a-english_x86/tree/master/data)
 
 `mkdir ~/sof1`
 
