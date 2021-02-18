@@ -2,9 +2,17 @@
 
 ## Contents
 1. [Motivation](https://github.com/d3nd3/soflinux/blob/main/README.md#motivation)
-1. [Obtaining](https://github.com/d3nd3/soflinux/blob/main/README.md#obtaining)
-1. [Running](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
-1. [Details](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
+3. [Obtaining](https://github.com/d3nd3/soflinux/blob/main/README.md#obtaining)
+4. [Running](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
+    [dependencies](https://github.com/d3nd3/soflinux/blob/main/README.md#dependencies)
+    [soundcrashfix](https://github.com/d3nd3/soflinux/blob/main/README.md#libxdmcpso6-to-place-in-sof-directory)
+    [scripts](https://github.com/d3nd3/soflinux/blob/main/README.md#place-launch_mpsh-launch_spsh-patchitsh-scripts-into-sof-directory)
+6. [Details](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
+    [solution](https://github.com/d3nd3/soflinux/blob/main/README.md#the-current-solution)
+    [obstacles](https://github.com/d3nd3/soflinux/blob/main/README.md#obstacles)
+    [tips](https://github.com/d3nd3/soflinux/blob/main/README.md#what-helped-me)
+    [audio](https://github.com/d3nd3/soflinux/blob/main/README.md#lets-talk-about-audio)
+    [won authentication](https://github.com/d3nd3/soflinux/blob/main/README.md#bypassing-won-lockdown-and-version-incompatibilities)
 
 ## Motivation
 Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
