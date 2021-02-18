@@ -34,7 +34,7 @@ CL_SendConnectPacket:
 	//protocol 1.06a DOESNT WORK SNEAKY
 	echo "20" | xxd -r -p -seek 0x814b7 - sof-bin
 CL_HandleChallenge:
-	//protocol 1.07f TICK
+	//protocol 1.07f TICKCLIENT
 	echo "21" | xxd -r -p -seek 0x7ce4b - sof-bin
 	//1.06
 	echo "20" | xxd -r -p -seek 0x7ce4b - sof-bin
@@ -44,10 +44,10 @@ CL_CheckForResend:
 	echo "20" | xxd -r -p -seek 0x7cfd4 - sof-bin
 
 
-//allow connections only from VERSION 33(1.07f)
+//allow connections only from VERSION 33(1.07f) TICKSERVER
 echo "21" | xxd -r -p -seek 0x623de - sof-bin
 
-//serverdata TICK
+//serverdata TICKCLIENT
 echo "21" | xxd -r -p -seek 0x81ab0 - sof-bin
 
 //info
@@ -72,9 +72,9 @@ echo 18430000 | xxd -r -p -seek 0x7d120 - sof-bin
 
 //receiving challenge, ignore mode from server
 echo 90e901000000 | xxd -r -p -seek 0x7e2d2 - sof-bin
-//no need.. override mode received instead TICK
+//no need.. override mode received instead TICKCLIENT
 echo 90909090909090bf05000000 | xxd -r -p -seek 0x7e2cc - sof-bin
-//dont process 2nd arg in challenge receive TICK
+//dont process 2nd arg in challenge receive TICKCLIENT
 echo 909090909090909090909090 | xxd -r -p -seek 0x7e2f4 - sof-bin
 
 
@@ -141,3 +141,17 @@ They are stages..
 3 = challenge without cert
 4 = connect with man in middle
 5 = connect without man in middle
+
+
+
+//sv_new_f
+echo "21" | xxd -r -p -seek 0x6831a - sof-bin
+//correct argv pointer
+echo 05 | xxd -r -p -seek 0x6249d - sof-bin
+//correct argv pointer
+echo 04 | xxd -r -p -seek 0x6246c - sof-bin
+//ignore connmode check
+echo 75 | xxd -r -p -seek 0x626b7 - sof-bin
+//svc_directconnect
+//ignore arg4
+echo 909090909090 | xxd -r -p -seek 0x626a9 - sof-bin
