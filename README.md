@@ -1,5 +1,6 @@
 # Soldier Of Fortune NATIVE linux patch for connecting to latest protocol
 
+## Contents
 1. [Motivation](https://github.com/d3nd3/soflinux/blob/main/README.md#motivation)
 1. [Obtaining](https://github.com/d3nd3/soflinux/blob/main/README.md#obtaining)
 1. [Running](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
