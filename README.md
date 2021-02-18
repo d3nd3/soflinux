@@ -17,8 +17,8 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 It will copy the sof binary and patch it so that you have a version to interact with windows community.
 ## How do i run the game?
 You have 2 options:
-* `./launch_mp.sh`
-* `./launch_sp.sh`
+* `./launch_mp.sh` - for connecting to windows 1.07f servers
+* `./launch_sp.sh` - for normal 1.06a linux behavior ( you're stuck to localhost unfortunately )
 ## What if it doesn't run?
 * Try changing the gl_driver line in launch script to /usr/lib/i386-linux-gnu/mesa/libGL.so.1 instead.
 
@@ -40,11 +40,6 @@ You have 2 options:
   * `+set protocol 33` - same
   * `+set no_won 1` - Disable WON authentication. Its required because WON is offline now. Dont worry, its not *really* lan only mode.
   * `+set developer 7` - Do you like more verbosity?
-
-TLDR launch line: 
-
-`LD_LIBRARY_PATH=. ./sof-bin +set gl_driver /usr/lib/i386-linux-gnu/libGL.so.1 +set console 1 +set menu_key xxxx-xxxx-xxxx-xxxx-xxxx +set vid_fullscreen 0 +set gl_finish 1 +set version 1.07fx86F +set protocol 33 +set no_won 1 +set developer 7`
-
 ## Obstacles
 During the journey of attempting to run SoF linux version on recent kernels/debian/ubuntu, I ran into many problems.
 * Audio not working
