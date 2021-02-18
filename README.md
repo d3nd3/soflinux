@@ -3,8 +3,11 @@
 Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
 ## Where can i get SoF linux version?
 [liflg](https://github.com/liflg/sof_1.06a-english_x86/tree/master/data)
+
 `mkdir ~/sof1`
+
 `tar -xvf patch-1.06a.tar -C ~/sof1`
+
 If you know about the SoF Community Edition, you can use extra paks from there. (pak0,pak1,pak2,pak3)
 ## libXdmcp.so.6 to place in sof directory
 [libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
@@ -16,6 +19,7 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 `chmod +x patchit.sh`
 
 `./patchit.sh`
+
 It will copy the sof binary and patch it so that you have a version to interact with windows community.
 ## How do i run the game?
 You have 2 options:
