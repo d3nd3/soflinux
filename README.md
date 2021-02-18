@@ -9,12 +9,14 @@
     1. [scripts](https://github.com/d3nd3/soflinux/blob/main/README.md#place-launch_mpsh-launch_spsh-patchitsh-scripts-into-sof-directory)
     2. [launch](https://github.com/d3nd3/soflinux/blob/main/README.md#how-do-i-run-the-game)
     3. [doesnt work](https://github.com/d3nd3/soflinux/blob/main/README.md#what-if-it-doesnt-run)
+    4. [experimental_server](https://github.com/d3nd3/soflinux/blob/main/README.md#server-mode-patch)
 6. [Details](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
     1. [solution](https://github.com/d3nd3/soflinux/blob/main/README.md#the-current-solution)
     1. [obstacles](https://github.com/d3nd3/soflinux/blob/main/README.md#obstacles)
     1. [tips](https://github.com/d3nd3/soflinux/blob/main/README.md#what-helped-me)
     1. [audio](https://github.com/d3nd3/soflinux/blob/main/README.md#lets-talk-about-audio)
     1. [won authentication](https://github.com/d3nd3/soflinux/blob/main/README.md#bypassing-won-lockdown-and-version-incompatibilities)
+    2. [experiment_server](https://github.com/d3nd3/soflinux/blob/main/README.md#experimental-server-support)
  1. [Credits](https://github.com/d3nd3/soflinux/blob/main/README.md#credits)
 
 ## Motivation
@@ -55,7 +57,8 @@ You have 2 options:
 * `./launch_sp.sh` - for normal 1.06a linux behavior ( you're stuck to localhost unfortunately )
 ### What if it doesn't run?
 * Try changing the gl_driver line in launch script to `/usr/lib/i386-linux-gnu/mesa/libGL.so.1` instead.
-
+### Server Mode Patch
+[patchit_server.sh](https://github.com/d3nd3/soflinux/blob/main/patchit_server.sh)
 ## Details
 ### The Current Solution
 * Tested on debian 9+ /w libc 2.23+.  Need more data samples to figure when it breaks.
@@ -116,6 +119,26 @@ You won't have much luck running sof as a server or even singleplayer after thes
 * Remind server you are using protocol 33 not 32
 
 `echo "21" | xxd -r -p -seek 0x7ce4b - sof-bin`
+### Experimental server support
+* sv_new_f
+
+`echo "21" | xxd -r -p -seek 0x6831a - sof-bin`
+
+* correct argv pointer
+
+`echo 05 | xxd -r -p -seek 0x6249d - sof-bin`
+
+* correct argv pointer
+
+`echo 04 | xxd -r -p -seek 0x6246c - sof-bin`
+
+* ignore connmode check
+
+`echo 75 | xxd -r -p -seek 0x626b7 - sof-bin`
+
+* ignore arg4
+
+`echo 909090909090 | xxd -r -p -seek 0x626a9 - sof-bin`
 ## Credits
 * Thanks to liflg for supplying a pre-patched 1.06a version.
 * Thanks to Activision and Raven for making one of the best games to ever exist.
