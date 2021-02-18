@@ -12,6 +12,7 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 [launch_mp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_mp.sh)
 [launch_sp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_sp.sh)
 [patchit.sh](https://github.com/d3nd3/soflinux/blob/main/patchit.sh)
+
 `chmod +x patchit.sh`
 `./patchit.sh`
 It will copy the sof binary and patch it so that you have a version to interact with windows community.
