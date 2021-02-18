@@ -6,7 +6,7 @@
 1. [Running](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
 1. [Details](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
 
-### Motivation
+## Motivation
 Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
 ## Obtaining
 ### Where can i get SoF linux version?
