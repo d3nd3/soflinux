@@ -110,7 +110,7 @@ So after you've ensured that the snd-pcm-oss module is loaded, you should be goo
 
 ### Bypassing won lockdown and version incompatibilities
 To cut it short: the game wants you to check certificates from server.  But it can be altered as to skip this and use normal q2 style handshake. These are the 4 xxd patches you must make to your sof binary.
-You won't have much luck running sof as a server or even singleplayer after these patches.  So you should have 2 binaries, make a backup of the orignal one and name it sof-single ( for singleplayer ), and another for multiplayer interaction with windows clients and servers.
+Always make a backup of the orignal sof-bin so that you can enjoy singleplayer bug free on 1.06a, copy it and patch it for for multiplayer interaction with windows clients and servers.
 * Skips cert checking
 
 `echo 90909090909090bf05000000 | xxd -r -p -seek 0x7e2cc - sof-bin`
