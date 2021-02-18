@@ -5,7 +5,7 @@
 3. [Obtaining](https://github.com/d3nd3/soflinux/blob/main/README.md#obtaining)
 4. [Running](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
     1. [dependencies](https://github.com/d3nd3/soflinux/blob/main/README.md#dependencies)
-    1. [sound crash fix](https://github.com/d3nd3/soflinux/blob/main/README.md#libxdmcpso6-to-place-in-sof-directory)
+    1. [sound crash fix](https://github.com/d3nd3/soflinux/blob/main/README.md#sof-crashes-when-it-tries-to-play-audio)
     1. [scripts](https://github.com/d3nd3/soflinux/blob/main/README.md#place-launch_mpsh-launch_spsh-patchitsh-scripts-into-sof-directory)
     2. [launch](https://github.com/d3nd3/soflinux/blob/main/README.md#how-do-i-run-the-game)
     3. [doesnt work](https://github.com/d3nd3/soflinux/blob/main/README.md#what-if-it-doesnt-run)
@@ -35,7 +35,7 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 
 `sudo apt install libgl1-mesa-glx libx11-6 libxext6`
 
-### sof crashes when it tries to play audio
+### Sof crashes when it tries to play audio
 Place [libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6) into your sof directory
 ### Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
 [launch_mp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_mp.sh)
