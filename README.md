@@ -5,7 +5,7 @@
 3. [Obtaining](https://github.com/d3nd3/soflinux/blob/main/README.md#obtaining)
 4. [Running](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
     1. [dependencies](https://github.com/d3nd3/soflinux/blob/main/README.md#dependencies)
-    1. [soundcrashfix](https://github.com/d3nd3/soflinux/blob/main/README.md#libxdmcpso6-to-place-in-sof-directory)
+    1. [sound crash fix](https://github.com/d3nd3/soflinux/blob/main/README.md#libxdmcpso6-to-place-in-sof-directory)
     1. [scripts](https://github.com/d3nd3/soflinux/blob/main/README.md#place-launch_mpsh-launch_spsh-patchitsh-scripts-into-sof-directory)
 6. [Details](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
     1. [solution](https://github.com/d3nd3/soflinux/blob/main/README.md#the-current-solution)
