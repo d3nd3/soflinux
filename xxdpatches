@@ -34,7 +34,7 @@ CL_SendConnectPacket:
 	//protocol 1.06a DOESNT WORK SNEAKY
 	echo "20" | xxd -r -p -seek 0x814b7 - sof-bin
 CL_HandleChallenge:
-	//protocol 1.07f
+	//protocol 1.07f TICK
 	echo "21" | xxd -r -p -seek 0x7ce4b - sof-bin
 	//1.06
 	echo "20" | xxd -r -p -seek 0x7ce4b - sof-bin
@@ -47,7 +47,7 @@ CL_CheckForResend:
 //allow connections only from VERSION 33(1.07f)
 echo "21" | xxd -r -p -seek 0x623de - sof-bin
 
-//serverdata
+//serverdata TICK
 echo "21" | xxd -r -p -seek 0x81ab0 - sof-bin
 
 //info
@@ -69,6 +69,15 @@ echo "E3300000" | xxd -r -p -seek 0x7e355 - sof-bin
 //route handleChallenge2? 
 echo 18430000 | xxd -r -p -seek 0x7d120 - sof-bin
 @reset echo "10F9FFFF"
+
+//receiving challenge, ignore mode from server
+echo 90e901000000 | xxd -r -p -seek 0x7e2d2 - sof-bin
+//no need.. override mode received instead TICK
+echo 90909090909090bf05000000 | xxd -r -p -seek 0x7e2cc - sof-bin
+//dont process 2nd arg in challenge receive TICK
+echo 909090909090909090909090 | xxd -r -p -seek 0x7e2f4 - sof-bin
+
+
 
 //fake localhost! no_won pls! @ Server
 echo "E9FB01000090" | xxd -r -p -seek 0x80A9F41
