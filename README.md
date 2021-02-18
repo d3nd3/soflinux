@@ -35,8 +35,8 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 
 `sudo apt install libgl1-mesa-glx libx11-6 libxext6`
 
-### libXdmcp.so.6 to place in sof directory
-[libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
+### sof crashes when it tries to play audio
+Place [libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6) into your sof directory
 ### Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
 [launch_mp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_mp.sh)
 
