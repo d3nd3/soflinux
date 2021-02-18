@@ -1,4 +1,23 @@
 # Soldier Of Fortune NATIVE linux patch for connecting to latest protocol
+## Motivation
+Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
+## Where can i get SoF linux version?
+[liflg](https://github.com/liflg/sof_1.06a-english_x86/tree/master/data)
+`mkdir ~/sof1`
+`tar -xvf patch-1.06a.tar -C ~/sof1`
+If you know about the SoF Community Edition, you can use extra paks from there. (pak0,pak1,pak2,pak3)
+## libXdmcp.so.6 to place in sof directory
+[libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
+## Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
+`chmod +x patchit.sh`
+`./patchit.sh`
+It will copy the sof binary and patch it so that you have a version to interact with windows community.
+## How do i run the game?
+You have 2 options:
+* ./launch_mp.sh
+* ./launch_sp.sh
+## What if it doesn't run?
+* Try changing the gl_driver line in launch script to /usr/lib/i386-linux-gnu/mesa/libGL.so.1 instead.
 
 ## The Current Solution
 * Tested on debian 9+ /w libc 2.23+.  Need more data samples to figure when it breaks.
@@ -22,8 +41,7 @@
 TLDR launch line: 
 
 `LD_LIBRARY_PATH=. ./sof-bin +set gl_driver /usr/lib/i386-linux-gnu/libGL.so.1 +set console 1 +set menu_key xxxx-xxxx-xxxx-xxxx-xxxx +set vid_fullscreen 0 +set gl_finish 1 +set version 1.07fx86F +set protocol 33 +set no_won 1 +set developer 7`
-## Motivation
-Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
+
 ## Obstacles
 During the journey of attempting to run SoF linux version on recent kernels/debian/ubuntu, I ran into many problems.
 * Audio not working
@@ -66,11 +84,4 @@ You won't have much luck running sof as a server or even singleplayer after thes
 
 `echo "21" | xxd -r -p -seek 0x7ce4b - sof-bin`
 
-## Where can i get SoF linux version?
-[liflg](https://github.com/liflg/sof_1.06a-english_x86/tree/master/data)
-`mkdir ~/sof1`
-`tar -xvf patch-1.06a.tar -C ~/sof1`
-If you know about the SoF Community Edition, you can use extra paks from there. (pak0,pak1,pak2,pak3)
 
-## libXdmcp.so.6 to place in sof directory
-[libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
