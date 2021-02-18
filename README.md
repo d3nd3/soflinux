@@ -14,6 +14,7 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 [patchit.sh](https://github.com/d3nd3/soflinux/blob/main/patchit.sh)
 
 `chmod +x patchit.sh`
+
 `./patchit.sh`
 It will copy the sof binary and patch it so that you have a version to interact with windows community.
 ## How do i run the game?
