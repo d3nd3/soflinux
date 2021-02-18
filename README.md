@@ -59,6 +59,10 @@ You have 2 options:
 * Try changing the gl_driver line in launch script to `/usr/lib/i386-linux-gnu/mesa/libGL.so.1` instead.
 ### Server Mode Patch
 [patchit_server.sh](https://github.com/d3nd3/soflinux/blob/main/patchit_server.sh)
+
+`chmod +x patchit_server.sh`
+
+`./patchit_server.sh`
 ## Details
 ### The Current Solution
 * Tested on debian 9+ /w libc 2.23+.  Need more data samples to figure when it breaks.
