@@ -9,13 +9,16 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 ## libXdmcp.so.6 to place in sof directory
 [libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
 ## Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
+[launch_mp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_mp.sh)
+[launch_sp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_sp.sh)
+[patchit.sh](https://github.com/d3nd3/soflinux/blob/main/patchit.sh)
 `chmod +x patchit.sh`
 `./patchit.sh`
 It will copy the sof binary and patch it so that you have a version to interact with windows community.
 ## How do i run the game?
 You have 2 options:
-* ./launch_mp.sh
-* ./launch_sp.sh
+* `./launch_mp.sh`
+* `./launch_sp.sh`
 ## What if it doesn't run?
 * Try changing the gl_driver line in launch script to /usr/lib/i386-linux-gnu/mesa/libGL.so.1 instead.
 
