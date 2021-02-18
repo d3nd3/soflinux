@@ -18,8 +18,11 @@ Currently the sof linux version `1.06a` does not allow you to join servers that 
 If you know about the SoF Community Edition, you can use extra paks from there. (pak0,pak1,pak2,pak3)
 ## Running
 ### Dependencies
-sudo apt update
-sudo apt install libgl1-mesa-glx libx11-6 libxext6
+
+`sudo apt update`
+
+`sudo apt install libgl1-mesa-glx libx11-6 libxext6`
+
 ### libXdmcp.so.6 to place in sof directory
 [libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
 ### Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
