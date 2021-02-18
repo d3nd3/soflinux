@@ -117,7 +117,7 @@ You won't have much luck running sof as a server or even singleplayer after thes
 
 `echo "21" | xxd -r -p -seek 0x7ce4b - sof-bin`
 ## Credits
-* Thanks to liflg for supplying a prepatched 1.06a version.
+* Thanks to liflg for supplying a pre-patched 1.06a version.
 * Thanks to Activision and Raven for making one of the best games to ever exist.
 * Thanks to CheaterSkeeter, Acadie, Chin for sustaining interest in the game, despite its low player count.
 * Thanks to [lutris/asgard](https://github.com/lutris/asgard/) for inspiring me that sof will run on modern distros.
