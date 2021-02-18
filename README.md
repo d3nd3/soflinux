@@ -16,7 +16,7 @@
   * `+set gl_finish 1` - removes extreme flicker bug, unplayable without.
   * `+set version 1.07fx86F` - lets fake windows version , why not?
   * `+set protocol 33` - same
-  * `+set no_won 1` - Disable WON authenitication. Its required because WON is offline now. Dont worry, its not *really* lan only mode.
+  * `+set no_won 1` - Disable WON authentication. Its required because WON is offline now. Dont worry, its not *really* lan only mode.
   * `+set developer 7` - Do you like more verbosity?
 
 TLDR launch line: 
