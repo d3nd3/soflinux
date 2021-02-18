@@ -53,7 +53,7 @@ You have 2 options:
 * `./launch_mp.sh` - for connecting to windows 1.07f servers
 * `./launch_sp.sh` - for normal 1.06a linux behavior ( you're stuck to localhost unfortunately )
 ### What if it doesn't run?
-* Try changing the gl_driver line in launch script to /usr/lib/i386-linux-gnu/mesa/libGL.so.1 instead.
+* Try changing the gl_driver line in launch script to `/usr/lib/i386-linux-gnu/mesa/libGL.so.1` instead.
 
 ## Details
 ### The Current Solution
