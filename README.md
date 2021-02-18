@@ -1,7 +1,14 @@
 # Soldier Of Fortune NATIVE linux patch for connecting to latest protocol
-## Motivation
+
+1. [Motivation](https://github.com/d3nd3/soflinux/blob/main/README.md#motivation)
+1. [Obtaining](https://github.com/d3nd3/soflinux/blob/main/README.md#obtaining)
+1. [Running](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
+1. [Details](https://github.com/d3nd3/soflinux/blob/main/README.md#running)
+
+### Motivation
 Currently the sof linux version `1.06a` does not allow you to join servers that are not equal to it.  I love the idea of running SoF on linux without using wine because it makes the installation process more straightforward.
-## Where can i get SoF linux version?
+## Obtaining
+### Where can i get SoF linux version?
 [liflg](https://github.com/liflg/sof_1.06a-english_x86/tree/master/data)
 
 `mkdir ~/sof1`
@@ -9,9 +16,10 @@ Currently the sof linux version `1.06a` does not allow you to join servers that 
 `tar -xvf patch-1.06a.tar -C ~/sof1`
 
 If you know about the SoF Community Edition, you can use extra paks from there. (pak0,pak1,pak2,pak3)
-## libXdmcp.so.6 to place in sof directory
+## Running
+### libXdmcp.so.6 to place in sof directory
 [libXdmcp.so.6](https://github.com/d3nd3/soflinux/blob/main/libXdmcp.so.6)
-## Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
+### Place launch_mp.sh launch_sp.sh patchit.sh scripts into sof directory.
 [launch_mp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_mp.sh)
 
 [launch_sp.sh](https://github.com/d3nd3/soflinux/blob/main/launch_sp.sh)
@@ -23,14 +31,15 @@ If you know about the SoF Community Edition, you can use extra paks from there. 
 `./patchit.sh`
 
 It will copy the sof binary and patch it so that you have a version to interact with windows community.
-## How do i run the game?
+### How do i run the game?
 You have 2 options:
 * `./launch_mp.sh` - for connecting to windows 1.07f servers
 * `./launch_sp.sh` - for normal 1.06a linux behavior ( you're stuck to localhost unfortunately )
-## What if it doesn't run?
+### What if it doesn't run?
 * Try changing the gl_driver line in launch script to /usr/lib/i386-linux-gnu/mesa/libGL.so.1 instead.
 
-## The Current Solution
+## Details
+### The Current Solution
 * Tested on debian 9+ /w libc 2.23+.  Need more data samples to figure when it breaks.
 * Ensure `ALSA OSS Kernel Modules` are loaded and compiled into your systems' kernel. Check your kernel config file @ `grep CONFIG_SND_PCM_OSS /boot/config-$(uname-r)`
 * You can load it with `modprobe snd-pcm-oss` and `modprobe snd-mixer-oss`
@@ -48,12 +57,12 @@ You have 2 options:
   * `+set protocol 33` - same
   * `+set no_won 1` - Disable WON authentication. Its required because WON is offline now. Dont worry, its not *really* lan only mode.
   * `+set developer 7` - Do you like more verbosity?
-## Obstacles
+### Obstacles
 During the journey of attempting to run SoF linux version on recent kernels/debian/ubuntu, I ran into many problems.
 * Audio not working
 * Game seg faulting on startup
 * Being unable to authenticate with WON
-## What helped me
+### What helped me
 Despite the many obstacles, I learnt a lot about debugging problems on linux.
 * `LD_DEBUG=bindings` Since the linker in linux is often using lazy loading, everytime a function is ran for the first time, its symbol is looked up into linker thus revealing execution flow, great for debugging.
 * `gdb --args` Running gdb is a huge help.
@@ -62,7 +71,7 @@ Despite the many obstacles, I learnt a lot about debugging problems on linux.
   * `finish` to run until return from current function
 * `IDA` Excellent tool
 * `ldd --version ldd`
-## Lets talk about Audio
+### Lets talk about Audio
 The linux version of SoF is using Direct Memory Mapped Audio via OSS layer.  The `liboasnd.so` library interacts with `libopenal-0.0.so`, to prepare the device for receiving audio, buffer size and fragments etc must be set correctly.  The system API `fcntl` and `ioctl` are used for doing this but unfortately the recent linux glibc versions alter the behavior of `fcntl`, so if left untouched, sound will **not** work.
 
 Yet sound works with OSS kernel emulation, why? Because ALSA automaticly sets those parameters on a lower layer.
@@ -74,7 +83,7 @@ Yet sound works with OSS kernel emulation, why? Because ALSA automaticly sets th
 
 So after you've ensured that the snd-pcm-oss module is loaded, you should be good to go.
 
-## Bypassing won lockdown and version incompatibilities
+### Bypassing won lockdown and version incompatibilities
 To cut it short: the game wants you to check certificates from server.  But it can be altered as to skip this and use normal q2 style handshake. These are the 4 xxd patches you must make to your sof binary.
 You won't have much luck running sof as a server or even singleplayer after these patches.  So you should have 2 binaries, make a backup of the orignal one and name it sof-single ( for singleplayer ), and another for multiplayer interaction with windows clients and servers.
 * Skips cert checking
