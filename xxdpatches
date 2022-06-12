@@ -7,20 +7,22 @@ echo "9090909090" | xxd -r -p -seek 0x0006578e - SoF-spsv.exe
 //patch load sofrees
 echo "736F66726565532E646C6C00" | xxd -r -p -seek 0x0011ad72 - SoF-spsv.exe
 
+//fix __dynamic_cast (old libstdc++ static compiled symbol) interfere with graphics library's libstdc++
+echo "6B" | xxd -r -p -seek 0x751A0 - libTitan.so
 
 //ref_gl.so linux GL_EXTENSIONS overflow
 echo "2020" | xxd -r -p -seek 0x50244 - ref_gl.so
 echo "2020" | xxd -r -p -seek 0x50771 - ref_gl.so
 
 //%X for GL_EXTENSIONS
-echo "2558" | xxd -r -p -seek 0x50244 - ref_gl.so
+echo "2558" | xxd -r -p -seek 0x50245 - ref_gl.so
 echo "2558" | xxd -r -p -seek 0x50771 - ref_gl.so
 // %X for GL_RENDERER
 echo "2558" | xxd -r -p -seek 0x5074a - ref_gl.so
 echo "2558" | xxd -r -p -seek 0x50207 - ref_gl.so
 
 //%s for GL_EXTENSIONS
-echo "2573" | xxd -r -p -seek 0x50244 - ref_gl.so
+echo "2573" | xxd -r -p -seek 0x50245 - ref_gl.so
 echo "2573" | xxd -r -p -seek 0x50771 - ref_gl.so
 
 // SDL GetString for GL_EXTENSIONS
