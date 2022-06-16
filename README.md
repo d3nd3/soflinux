@@ -66,7 +66,7 @@ You have 2 options:
 ## Details
 ### The Current Solution
 * Tested on debian 9+ /w libc 2.23+.  Need more data samples to figure when it breaks.
-* Ensure `ALSA OSS Kernel Modules` are loaded and compiled into your systems' kernel. Check your kernel config file @ `grep CONFIG_SND_PCM_OSS /boot/config-$(uname-r)`
+* Ensure `ALSA OSS Kernel Modules` are loaded and compiled into your systems' kernel. Check your kernel config file @ `grep CONFIG_SND_PCM_OSS /boot/config-$(uname -r)`
 * You can load it with `modprobe snd-pcm-oss` and `modprobe snd-mixer-oss`
 * You'll require `libXdmcp.so.6` from ubuntu xenial 2.23 glibc.  This fixes a dreaded crash when audio starts to play. Just pop it in your directory.
 * Uninstall `libtxc-dxtn0` because it seg faults.  If you really need s3 texture compression search around for a compatible version.
