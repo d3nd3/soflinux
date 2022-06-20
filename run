@@ -1,0 +1,6 @@
+docker run -it \
+ --device /dev/dri \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+--env XDG_RUNTIME_DIR=/run/mullins/1000 \
+--env DISPLAY=$DISPLAY \
+real
