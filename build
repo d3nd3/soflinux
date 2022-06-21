@@ -1,1 +1,1 @@
-docker build -t real .
+docker build -t real ctx
