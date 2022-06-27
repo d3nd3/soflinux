@@ -43,10 +43,11 @@ if [ -z DOCKERGROUPED ]; then
   echo "Using sudo, becuase your user is not in docker group"
   TOSUDO=sudo
 fi
+#--privileged \
 $TOSUDO docker run -it \
---privileged \
 --device /dev/dri \
 --device /dev/snd \
+--device /dev/dsp \
 --env XDG_RUNTIME_DIR=/run/mullins/1000 \
 --env DISPLAY=$DISPLAY \
 -v /tmp/.X11-unix:/tmp/.X11-unix \

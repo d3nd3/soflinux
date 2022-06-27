@@ -44,7 +44,7 @@ if [ -z DOCKERGROUPED ]; then
   TOSUDO=sudo
 fi
 $TOSUDO docker run -it \
---privileged \
+--device /dev/dsp \
 --device /dev/dri \
 --device /dev/snd \
 --env XDG_RUNTIME_DIR=/run/mullins/1000 \

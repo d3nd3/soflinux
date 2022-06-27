@@ -105,11 +105,6 @@ SHELL ["/bin/bash" , "-c"]
 # i do this on the host instead.
 #COPY default_video.cfg /home/mullins/.loki/sof/
 
-
-#USER root
-#RUN apt-get -y update && apt-get install -y osspd
-#RUN apt-get install libxdmcp6
-
 # prepare to launch
 USER mullins
 #console says +set cddir write protected, but not true, it still reads it

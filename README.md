@@ -1,4 +1,7 @@
 # SoF1 Linux
+## For audio to work
+`sudo apt install osspd`  
+This is required for audio to function.
 ## Choose to build image or download image pre-built
 ### Prebuilt
 TODO:not sure how to do this yet!
