@@ -57,6 +57,7 @@ cp sof_demo/base/pak0.pak /sof/base/pak5.pak && \
 cp soflinux/patchit.sh /sof/ && \
 cp soflinux/patchit_server.sh /sof/
 
+# only gets sof_demo and patchit scripts. so fine
 WORKDIR sof
 #creates sof-mp-server and sof-mp binaries
 RUN /bin/bash patchit.sh && /bin/bash patchit_server.sh
