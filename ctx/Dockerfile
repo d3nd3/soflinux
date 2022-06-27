@@ -105,20 +105,25 @@ SHELL ["/bin/bash" , "-c"]
 # i do this on the host instead.
 #COPY default_video.cfg /home/mullins/.loki/sof/
 
-# GL_STRINGS buffer fix
-ENV MESA_EXTENSIONS_MAX_YEAR=2000
-# vsync OFF
-ENV vblank_mode=1
-ENV LD_LIBRARY_PATH=.
-USER root
+
+#USER root
 #RUN apt-get -y update && apt-get install -y osspd
 #RUN apt-get install libxdmcp6
-RUN apt-get -y update && apt-get -y install procps
-RUN apt-get -y install psmisc
+
 # prepare to launch
 USER mullins
 #console says +set cddir write protected, but not true, it still reads it
 #ENTRYPOINT ["/bin/bash","-c","./sof-bin +set cddir static_files +set console 1"]
+
+# GL_STRINGS buffer fix
+ENV MESA_EXTENSIONS_MAX_YEAR=2000
+# vsync OFF
+ENV vblank_mode=1
+
+# libraries loadable
+ENV LD_LIBRARY_PATH=.
+# latest mesa version fix symbol clash libTitan __dynamic_cast
+ENV LD_PRELOAD=libstdc++.so.6
 
 #sof has to ran in a shell, it seems
 CMD ["sof-bin","+set cddir static_files","+set console 1"]
