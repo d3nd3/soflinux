@@ -3,6 +3,8 @@ if [ ! -d "ctx" ];then
   echo "Run this script from the soflinux folder"
   exit 1
 fi
+# base folder on host, so that extra maps can be added
+# user folder also on host, so that saves and downloads are persistent
 docker run -it \
 --privileged \
 --device /dev/dri \
@@ -11,4 +13,5 @@ docker run -it \
 --env DISPLAY=$DISPLAY \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v $PWD/base:/home/mullins/sof/base \
+-v ~/.loki/sof
 real
