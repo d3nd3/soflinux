@@ -8,6 +8,7 @@ echo "9090909090" | xxd -r -p -seek 0x0006578e - SoF-spsv.exe
 echo "736F66726565532E646C6C00" | xxd -r -p -seek 0x0011ad72 - SoF-spsv.exe
 
 //fix __dynamic_cast (old libstdc++ static compiled symbol) interfere with graphics library's libstdc++
+//this fix does not work, but using LD_PRELOAD=libstdc++.so.6 does
 echo "6B" | xxd -r -p -seek 0x751A0 - libTitan.so
 
 //ref_gl.so linux GL_EXTENSIONS overflow
