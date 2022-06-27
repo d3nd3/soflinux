@@ -48,6 +48,15 @@ RUN xvfb-run wine sof_ce_installer.exe /s /l=English /p=./sof-ce
 #RUN cp sof-ce/Base/basicpack2015v2.pak sof/base/ && \
 #cp sof-ce/Base/pak*.pak sof/base/
 
+#apply v1.07 compat patch
+RUN apt -y install xxd
+RUN cp soflinux/patchit.sh /sof/
+RUN cp soflinux/patchit_server.sh /sof/
+WORKDIR sof
+#creates sof-mp-server and sof-mp binaries
+RUN /bin/bash patchit.sh && /bin/bash patchit_server.sh
+
+
 #---------------------------------------
 # create the image to run it from
 #---------------------------------------
@@ -82,24 +91,29 @@ USER mullins
 WORKDIR sof
 SHELL ["/bin/bash" , "-c"]
 
-RUN mkdir -p ~/.loki/sof && mkdir -p base
-COPY won_key /home/mullins/.loki/sof/
+# this is now mounted from host
+#RUN mkdir -p ~/.loki/sof && mkdir -p base
+#COPY won_key /home/mullins/.loki/sof/
 
 # linux faulty default gamma
 # default_video.cfg overridden in "user' dir maxfps=150 and gamma=0
-COPY default_video.cfg /home/mullins/.loki/sof/
+# i do this on the host instead.
+#COPY default_video.cfg /home/mullins/.loki/sof/
 
 # GL_STRINGS buffer fix
 ENV MESA_EXTENSIONS_MAX_YEAR=2000
 # vsync OFF
 ENV vblank_mode=1
-
-#USER root
+ENV LD_LIBRARY_PATH=.
+USER root
 #RUN apt-get -y update && apt-get install -y osspd
 #RUN apt-get install libxdmcp6
-
+RUN apt-get -y update && apt-get -y install procps
+RUN apt-get -y install psmisc
 # prepare to launch
 USER mullins
-#cmdline write protected is not true, it still reads it
-CMD ["./sof","+set cddir static_files +set console 1 +set developer 7"]
-#CMD ["bash"]
+#console says +set cddir write protected, but not true, it still reads it
+#ENTRYPOINT ["/bin/bash","-c","./sof-bin +set cddir static_files +set console 1"]
+
+CMD ["sof-bin","+set cddir static_files","+set console 1"]
+

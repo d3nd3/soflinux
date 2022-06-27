@@ -52,4 +52,4 @@ $TOSUDO docker run -it \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v ~/.loki/sof-base:/home/mullins/sof/base \
 -v ~/.loki/sof:/home/mullins/.loki/sof \
-real ./sof-bin +set cddir static_files +set console 1 $@
+real /bin/bash
