@@ -22,6 +22,11 @@
 #Xenial has python 3.5, pip requires is broken because of f"" not supported on <3.6
 #So Use bionic, = python 3.6
 #sof_ce_installer.exe is build with Smart Install Maker
+
+
+#---------------------------------------------
+# get all resources into one directory
+#---------------------------------------------
 FROM i386/ubuntu:bionic AS builder
 #echo "deb [trusted=yes] http://ppa.launchpad.net/deadsnakes/ppa ubuntu bionic main" >> /etc/apt/sources.list
 RUN apt -y update && apt install -y git python3 python3-pip && pip3 install requests
@@ -43,36 +48,58 @@ RUN xvfb-run wine sof_ce_installer.exe /s /l=English /p=./sof-ce
 #RUN cp sof-ce/Base/basicpack2015v2.pak sof/base/ && \
 #cp sof-ce/Base/pak*.pak sof/base/
 
+#---------------------------------------
+# create the image to run it from
+#---------------------------------------
 #paks loaded
 # Final
 FROM i386/ubuntu:xenial
-RUN apt-get -y update && apt-get -y install libgl1-mesa-glx libx11-6 libxext6 && \
-rm -rf /var/lib/apt/lists/*
 
+#dependencies
+RUN apt-get -y update && apt-get -y install \
+libgl1-mesa-glx \
+libx11-6 \
+libxext6 \
+&& rm -rf /var/lib/apt/lists/*
 
+#user_account
 RUN adduser --disabled-password --gecos '' mullins
 USER mullins
 WORKDIR /home/mullins
-RUN mkdir -p sof/base
-COPY --from=builder --chown=mullins /sof-ce/Base/basicpack2015v2.pak sof/base/
-COPY --from=builder --chown=mullins /sof-ce/Base/pak*.pak sof/base/
+
+# using 'cddir' option as 'static_files/base' to make a layered filesystem
+RUN mkdir -p sof/static_files/base
+
+# copy sof from the previous builder image
+COPY --from=builder --chown=mullins /sof-ce/Base/basicpack2015v2.pak sof/static_files/base/
+COPY --from=builder --chown=mullins /sof-ce/Base/pak*.pak sof/static_files/base/
 COPY --from=builder --chown=mullins /sof sof/
+COPY --from=builder --chown=mullins /sof/base sof/static_files/base
 
-USER root
-#RUN apt remove libtxc-dxtn0 && apt install libxdmcp6
+
 USER mullins
-
-#CMD ["bash"]
+# /home/mullins/sof
 WORKDIR sof
 SHELL ["/bin/bash" , "-c"]
-RUN \
-	echo -ne "won_set_key ben2-bac7-buz6-jad3-9742\n" \
-	"vid_brightness 0.6\n" \
-	"vid_contrast 0.6\n" \
-	"vid_gamma 0\n" \
-	"gl_modulate 1\n" \
-	"vid_restart\n" \
-	"cl_maxfps 150\n"  > base/autoexec.cfg
+
+RUN mkdir -p ~/.loki/sof && mkdir -p base
+COPY won_key /home/mullins/.loki/sof/
+
+# linux faulty default gamma
+# default_video.cfg overridden in "user' dir maxfps=150 and gamma=0
+COPY default_video.cfg /home/mullins/.loki/sof/
+
+# GL_STRINGS buffer fix
 ENV MESA_EXTENSIONS_MAX_YEAR=2000
+# vsync OFF
 ENV vblank_mode=1
-CMD ["./sof","+set console 1;+set developer 7"]
+
+#USER root
+#RUN apt-get -y update && apt-get install -y osspd
+#RUN apt-get install libxdmcp6
+
+# prepare to launch
+USER mullins
+#cmdline write protected is not true, it still reads it
+CMD ["./sof","+set cddir static_files +set console 1 +set developer 7"]
+#CMD ["bash"]
