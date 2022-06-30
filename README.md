@@ -6,10 +6,11 @@ This is required for audio to function.
 ### Prebuilt
 TODO:not sure how to do this yet!
 ### Build yourself 
-as *regular* user, do:  
+Depending if your pi is member of docker group, you will have to use sudo  
 `cd soflinux`  
-`bash build`  
+`sudo bash build`  
 ## Run
+**Do not use sudo on the run script even if you are not docker grouped, the script will handle this for you.  **  
 NOTE: Any extra commands passed in to ./run will be forwarded to the game executable.  
 eg. `./run +set name MVP`  
 will launch with player name set to MVP.  
