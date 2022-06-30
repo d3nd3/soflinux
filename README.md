@@ -4,7 +4,8 @@
 This is required for audio to function.
 ## Choose to build image or download image pre-built
 ### Prebuilt
-TODO:not sure how to do this yet!
+TODO:not sure how to do this yet!  
+Verified.
 ### Build yourself 
 Depending if your pi is member of docker group, you will have to use sudo  
 `cd soflinux`  
