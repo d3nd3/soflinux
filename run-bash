@@ -39,7 +39,7 @@ if [ ! -f ~/.loki/sof/default_video.cfg ]; then
 fi
 # base folder on host, so that extra maps can be added
 # user folder also on host, so that saves and downloads are persistent
-if [ -z DOCKERGROUPED ]; then
+if [ -z $DOCKERGROUPED ]; then
   echo "Using sudo, becuase your user is not in docker group"
   TOSUDO=sudo
 fi
