@@ -26,4 +26,5 @@ will launch with player name set to MVP.
 `@outsideContainer $HOME/.loki/sof-base` - .pak files are loaded from this directory, also monted into the container at run-time. Its also the folder that an **autoexec.cfg** is searched.  
 `@insideContainer /home/mullins/sof/static_files` - game pak files, pak0,pak1,pak2 etc.  
 
-
+## TroubleShooting
+If you use proprietry gpu drivers, you might want to edit the Dockerfile to install the priorietry glx drivers.  If you're gpu doesn't function with the mesa drivers in the default repo of `bionic`, you may want to try upgrading the drivers there, using a fresh mesa ppa (also by appending to the Dockerfile).
