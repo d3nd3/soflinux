@@ -108,6 +108,7 @@ SHELL ["/bin/bash" , "-c"]
 
 USER root
 RUN apt-get -y update && apt-get -y install gdb
+RUN apt-get -y install mesa-utils
 #RUN apt-get -y install padsp
 #RUN setcap cap_net_raw,cap_net_admin+eip /home/mullins/sof/sof-bin
 

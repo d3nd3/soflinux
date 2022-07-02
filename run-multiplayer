@@ -54,4 +54,5 @@ $TOSUDO docker run -it \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v ~/.loki/sof-base:/home/mullins/sof/base \
 -v ~/.loki/sof:/home/mullins/.loki/sof \
+--net=host \
 real ./sof-mp +set version 1.07fx86F +set protocol 33 +set cddir static_files +set console 1 $@
