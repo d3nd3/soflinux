@@ -11,7 +11,7 @@ Depending if your pi is member of docker group, you will have to use sudo
 `cd soflinux`  
 `sudo bash build`  
 ## Run
-**Do not use sudo on the run script even if you are not docker grouped, the script will handle this for you.  **  
+**Do not use sudo on the run script even if you are not docker grouped, the script will handle this for you.**  
 NOTE: Any extra commands passed in to ./run will be forwarded to the game executable.  
 eg. `./run +set name MVP`  
 will launch with player name set to MVP.  
