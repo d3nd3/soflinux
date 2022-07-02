@@ -106,6 +106,11 @@ SHELL ["/bin/bash" , "-c"]
 # i do this on the host instead.
 #COPY default_video.cfg /home/mullins/.loki/sof/
 
+USER root
+RUN apt-get -y update && apt-get -y install gdb
+#RUN apt-get -y install padsp
+#RUN setcap cap_net_raw,cap_net_admin+eip /home/mullins/sof/sof-bin
+
 # prepare to launch
 USER mullins
 #console says +set cddir write protected, but not true, it still reads it
@@ -119,8 +124,10 @@ ENV vblank_mode=1
 # libraries loadable
 ENV LD_LIBRARY_PATH=.
 # latest mesa version fix symbol clash libTitan __dynamic_cast
-ENV LD_PRELOAD=libstdc++.so.6
+# AND _sl_add in liboasnd.so libbsd0.so
+ENV LD_PRELOAD="ref_gl.so liboasnd.so libstdc++.so.6"
+#ENV LD_ASSUME_KERNEL=2.4.6
 
 #sof has to ran in a shell, it seems
-CMD ["sof-bin","+set cddir static_files","+set console 1"]
+CMD ["./sof-bin" "+set cddir static_files","+set console 1"]
 
