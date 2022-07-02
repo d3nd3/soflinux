@@ -50,6 +50,7 @@ $TOSUDO docker run -it \
 --device /dev/snd \
 --env XDG_RUNTIME_DIR=/run/mullins/1000 \
 --env DISPLAY=$DISPLAY \
+--env LD_PRELOAD="libstdc++.so.6" \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -v ~/.loki/sof-base:/home/mullins/sof/base \
 -v ~/.loki/sof:/home/mullins/.loki/sof \

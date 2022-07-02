@@ -61,14 +61,14 @@ cp soflinux/patchit_server.sh /sof/
 WORKDIR sof
 #creates sof-mp-server and sof-mp binaries
 RUN /bin/bash patchit.sh && /bin/bash patchit_server.sh
-
+RUN cp /soflinux/libXdmcp.so.6 ./
 
 #---------------------------------------
 # create the image to run it from
 #---------------------------------------
 #paks loaded
 # Final
-FROM i386/ubuntu:xenial
+FROM i386/ubuntu:bionic
 
 #dependencies
 RUN apt-get -y update && apt-get -y install \
@@ -125,7 +125,7 @@ ENV vblank_mode=1
 ENV LD_LIBRARY_PATH=.
 # latest mesa version fix symbol clash libTitan __dynamic_cast
 # AND _sl_add in liboasnd.so libbsd0.so
-ENV LD_PRELOAD="ref_gl.so liboasnd.so libstdc++.so.6"
+#ENV LD_PRELOAD="ref_gl.so liboasnd.so libstdc++.so.6"
 #ENV LD_ASSUME_KERNEL=2.4.6
 
 #sof has to ran in a shell, it seems
