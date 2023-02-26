@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./pre-run.sh
+. $(dirname "${BASH_SOURCE[0]}")/pre-run.sh
 
 LAUNCH_OPTS="\
 ./sof-mp-server \
@@ -20,4 +20,4 @@ else
   HOSTPORT='-p 28910:28910/udp'
 fi
 
-. ./body-run.sh
+. $(dirname "${BASH_SOURCE[0]}")/body-run.sh

@@ -38,6 +38,7 @@ FROM i386/ubuntu:bionic AS sofBuilder
 RUN apt -y update && apt install -y git python3 python3-pip && pip3 install requests
 # ------------------SOF1.06a----------------
 # Get 1.06a , rename pak2.pak -> pak6.pak, extracts to '/sof'
+RUN echo "Please Standby, we are grabbing SoF Community Edition, its around 600MB, this could take a while."
 RUN mkdir /sof && \
 	git clone https://github.com/liflg/sof_1.06a-english_x86 && \
 	tar -xvf sof_1.06a-english_x86/data/patch-1.06a.tar -C /sof && \
@@ -59,16 +60,15 @@ RUN xvfb-run wine sof_ce_installer.exe /s /l=English /p=./sof-ce
 # Extract demo, copy demo pak0.pak into '/sof' as 'pak5.pak', move hex patches into '/sof'
 # why pak5.pak and pak6.pak demo and 1.06a? too much priority?
 #apply v1.07 compat patch
+COPY sof_demo.tar.gz /
 RUN apt-get -y install xxd && \
-COPY sof_demo.targ.gz /soflinux/ && \
-tar -xvzf /soflinux/sof_demo.tar.gz && \
-cp /sof_demo/base/pak0.pak /sof/base/demo_pak0.pak && \
-COPY patches/patchit.sh /sof/ && \
-COPY patches/patchit_server.sh /sof/
-
+tar -xvzf /sof_demo.tar.gz && \
+cp /sof_demo/base/pak0.pak /sof/base/demo_pak0.pak
 
 #------------------SOF-MP/SOF-MP-SERVER-----------------
 WORKDIR sof
+COPY patches/patchit.sh /sof/
+COPY patches/patchit_server.sh /sof/
 # Create sof-mp-server and sof-mp binaries
 RUN /bin/bash patchit.sh && /bin/bash patchit_server.sh
 COPY libXdmcp.so.6 .
@@ -77,6 +77,8 @@ COPY libXdmcp.so.6 .
 # Final Image to Run SoF with.
 #---------------------------------------
 FROM i386/ubuntu:bionic
+
+SHELL ["/bin/bash" , "-c"]
 
 # Dependencies
 RUN apt-get -y update && apt-get -y install \
@@ -105,29 +107,23 @@ RUN mkdir -p /home/mullins/.loki/sof
 # copy sof from the previous builder image
 COPY --from=sofBuilder --chown=mullins /sof-ce/Base/basicpack2015v2.pak ./sof/static_files/base/
 COPY --from=sofBuilder --chown=mullins /sof-ce/Base/pak*.pak ./sof/static_files/base/
+COPY --from=sofBuilder --chown=mullins /sof/base/player.so /sof/base/gamex86.so ./sof/static_files/base/
+
+
 COPY --from=sofBuilder --chown=mullins /sof/base/liflg_pak2.pak ./.loki/sof-addons/base/
 COPY --from=sofBuilder --chown=mullins /sof/base/demo_pak0.pak /home/mullins/.loki/sof-addons/base/
-COPY --from=sofBuilder --chown=mullins /sof ./sof/
+#COPY --from=sofBuilder --chown=mullins /sof/base/gamex86.so /home/mullins/.loki/sof-addons/base/
+#COPY --from=sofBuilder --chown=mullins /sof/base/player.so /home/mullins/.loki/sof-addons/base/
+COPY --from=sofBuilder --chown=mullins /sof/*.so* ./sof/
+COPY --from=sofBuilder --chown=mullins /sof/sof-bin /sof/sof-mp /sof/sof-mp-server ./sof/
 
-
-USER mullins
 # /home/mullins/sof
 WORKDIR sof
-SHELL ["/bin/bash" , "-c"]
-
-# this is now mounted from host
-#RUN mkdir -p ~/.loki/sof && mkdir -p base
-#COPY won_key /home/mullins/.loki/sof/
-
-# linux faulty default gamma
-# default_video.cfg overridden in "user' dir maxfps=150 and gamma=0
-# i do this on the host instead.
-#COPY default_video.cfg /home/mullins/.loki/sof/
 
 USER root
 RUN apt-get -y update && apt-get -y install gdb
 RUN apt-get -y install mesa-utils
-# RUN apt-get -y install padsp
+RUN apt-get -y install osspd-pulseaudio
 #RUN setcap cap_net_raw,cap_net_admin+eip /home/mullins/sof/sof-bin
 
 # prepare to launch
@@ -140,7 +136,7 @@ ENV MESA_EXTENSIONS_MAX_YEAR=2000
 ENV vblank_mode=1
 # libraries loadable
 ENV LD_LIBRARY_PATH=.
-ENV XDG_RUNTIME_DIR=/run/mullins/1000
+
 ENV LD_PRELOAD="libstdc++.so.6"
 
 # do we want docker run to contribute to cmdline? (yes)
