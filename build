@@ -1,6 +1,0 @@
-#!/bin/bash
-if [ ! -d "ctx" ];then
-  echo "Run this script from the soflinux folder"
-  exit 1
-fi
-docker build -t real ctx

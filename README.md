@@ -20,7 +20,7 @@ will launch with player name set to MVP.
 `chmod +x run-multiplayer`  
 `./run-multiplayer +connect ip_of_server:port`
 #### Multiplayer ip server list
-[https://megalag.org/server/sof](https://megalag.org/server/sof)
+[https://sof1.megalag.org/server/sof](https://sof1.megalag.org/server/sof)
 ## Folders
 `@outsideContainer $HOME/.loki/sof` - user dir where game savefiles and in-game downloaded content are stored. This folder is mounted into the docker container when it is ran.  
 `@outsideContainer $HOME/.loki/sof-base` - .pak files are loaded from this directory, also monted into the container at run-time. Its also the folder that an **autoexec.cfg** is searched.  

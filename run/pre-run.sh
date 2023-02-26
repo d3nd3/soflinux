@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# This file ensures required folders exist and have correct permissions.
+# Necessary for fixing sound and default gamma.
+
 if [[ `groups $USER` == *"docker"* ]]; then
  DOCKERGROUPED=1
 fi
@@ -8,6 +12,7 @@ if [ ! -d "ctx" ];then
   exit 1
 fi
 
+# User folder creation
 if [ ! -d ~/.loki/sof ] ; then
   echo "Creating user directory at ~/.loki/sof..."
   #ensure mounted folders are created before-hand
@@ -20,15 +25,15 @@ else
   fi
 fi
 
-# do the same for the base folder mount
-if [ ! -d ~/.loki/sof-base ] ; then
-  echo "Creating base directory at ~/.loki/sof-base..."
+# $basedir addons folder creation
+if [ ! -d ~/.loki/sof-addons/base ] ; then
+  echo "Creating base directory at ~/.loki/sof-addons..."
   echo "Use this for extra map .pak files and autoexec.cfg"
-  mkdir -p ~/.loki/sof-base
+  mkdir -p ~/.loki/sof-addons/base
 else
-  if [ `stat --format '%U' ~/.loki/sof-base` = "root" ]; then
+  if [ `stat --format '%U' ~/.loki/sof-addons/base` = "root" ]; then
     echo "Your loki base directory is root-owned, this has to be changed"
-    sudo chown -R $USER:$USER ~/.loki/sof-base
+    sudo chown -R $USER:$USER ~/.loki/sof-addons/base
   fi
 fi
 
@@ -43,16 +48,18 @@ if [ -z $DOCKERGROUPED ]; then
   echo "Using sudo, becuase your user is not in docker group"
   TOSUDO=sudo
 fi
-#--privileged \
-$TOSUDO docker run -it \
---device /dev/dri \
---device /dev/dsp \
---device /dev/snd \
---env XDG_RUNTIME_DIR=/run/mullins/1000 \
---env DISPLAY=$DISPLAY \
---env LD_PRELOAD="libstdc++.so.6" \
--v /tmp/.X11-unix:/tmp/.X11-unix \
--v ~/.loki/sof-base:/home/mullins/sof/base \
--v ~/.loki/sof:/home/mullins/.loki/sof \
---net=host \
-real ./sof-mp +set version 1.07fx86F +set protocol 33 +set cddir static_files +set console 1 $@
+if [ -e /dev/snd ]; then
+  DEVSND='--device /dev/snd'
+else
+  echo "Warning: /dev/snd not found, likely sound issues"
+fi
+if [ -e /dev/dsp ]; then
+  DEVDSP='--device /dev/dsp'
+else
+  echo "Warning: /dev/dsp not found, osspd installed?"
+fi
+
+if [ ! -z $USE_PRIV ]; then
+  echo "Using privileged mode"
+  USE_PRIV='--privileged'
+fi
