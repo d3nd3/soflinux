@@ -123,7 +123,9 @@ WORKDIR sof
 USER root
 RUN apt-get -y update && apt-get -y install gdb
 RUN apt-get -y install mesa-utils
-RUN apt-get -y install osspd-pulseaudio
+
+# Necessary for WSL users and gives us padsp for NON-WSL users
+RUN apt-get -y install osspd
 #RUN setcap cap_net_raw,cap_net_admin+eip /home/mullins/sof/sof-bin
 
 # prepare to launch
@@ -132,8 +134,7 @@ USER mullins
 
 # GL_STRINGS buffer fix
 ENV MESA_EXTENSIONS_MAX_YEAR=2000
-# vsync OFF
-ENV vblank_mode=1
+
 # libraries loadable
 ENV LD_LIBRARY_PATH=.
 

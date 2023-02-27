@@ -10,7 +10,7 @@ if [ ! -d $DIR_USER ] ; then
 else
   if [ `stat --format '%U' $DIR_USER` = "root" ]; then
     echo "Your loki user directory is root-owned, this has to be changed"
-    sudo chown -R $USER:$USER $DIR_USER
+    sudo chown -R $USER:$USER ~/.loki
   fi
 fi
 
@@ -22,6 +22,10 @@ if [ ! -d $DIR_BASEDIR ] ; then
 else
   if [ `stat --format '%U' $DIR_BASEDIR` = "root" ]; then
     echo "Your loki base directory is root-owned, this has to be changed"
-    sudo chown -R $USER:$USER $DIR_BASEDIR
+    sudo chown -R $USER:$USER ~/.loki
+  fi
+  if [ `stat --format '%U' $DIR_BASEDIR` = "root" ]; then
+    echo "Your loki base directory is root-owned, this has to be changed"
+    sudo chown -R $USER:$USER ~/.loki
   fi
 fi
