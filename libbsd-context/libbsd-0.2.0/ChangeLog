@@ -1,0 +1,1895 @@
+commit ddebbd6792e5c7ae53fb96cdc46566fc843adaa5
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 12:04:03 2010 +0100
+
+    Release libbsd 0.2.0
+
+ Makefile |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit abe0a4a7e6e0c8d9c7b8bdb55ade9535ec342578
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 11:02:13 2010 +0100
+
+    Reformat code to KNF
+
+ src/bsd_getopt.c |   13 ++++++-------
+ src/err.c        |   46 ++++++++++++++++++++++++----------------------
+ src/fgetln.c     |    2 +-
+ src/progname.c   |    8 ++++----
+ 4 files changed, 35 insertions(+), 34 deletions(-)
+
+commit 2872bfa15193c0b45bf7c212879533b96a8cc2fd
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 01:41:27 2010 +0100
+
+    Add vis and unvis man pages
+    
+    Taken from OpenBSD.
+
+ Makefile    |    2 +
+ src/unvis.3 |  198 ++++++++++++++++++++++++++++++++++++
+ src/vis.3   |  321 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 521 insertions(+), 0 deletions(-)
+
+commit e544a41f62b223cb03c417d7b250557dbec58a3f
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 01:37:18 2010 +0100
+
+    Add dehumanize_number man page link
+
+ Makefile                |    1 +
+ src/dehumanize_number.3 |    1 +
+ 2 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 7b3873bc1e80b9ddb3505b56735c713917b25945
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 01:35:27 2010 +0100
+
+    Update vis and unvis modules from OpenBSD
+
+ src/unvis.c |    7 ++++---
+ src/vis.c   |   17 ++++-------------
+ 2 files changed, 8 insertions(+), 16 deletions(-)
+
+commit 8103fe1486cdb95e4d985194cac79bc5940e82ce
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 01:33:07 2010 +0100
+
+    Update strlcat and strlcpy from OpenBSD
+
+ src/strlcat.c |   43 ++++++++++++-------------------------------
+ src/strlcpy.3 |   52 +++++++++++++++++++---------------------------------
+ src/strlcpy.c |   52 +++++++++++++++++-----------------------------------
+ 3 files changed, 48 insertions(+), 99 deletions(-)
+
+commit d63e081303521c45baeaabd002c706196c51048e
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 00:57:07 2010 +0100
+
+    Add arc4random_buf and arc4random_uniform functions
+    
+    Update arc4random module from FreeBSD.
+
+ Makefile                 |    2 +
+ Versions                 |    3 +
+ src/arc4random.3         |   28 ++++++-
+ src/arc4random.c         |  195 ++++++++++++++++++++++++++++++++--------------
+ src/arc4random_buf.3     |    1 +
+ src/arc4random_uniform.3 |    1 +
+ 6 files changed, 167 insertions(+), 63 deletions(-)
+
+commit 3fed78e5b08f78256e533788b4bcd6502b0949d7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 00:37:03 2010 +0100
+
+    Replace setproctitle dummy macro with a function stub
+    
+    This way we can replace it later on with a real implementation so that
+    applications can immediately benefit from it w/o the need to recompile
+    them.
+
+ Makefile                                   |    1 +
+ Versions                                   |    2 ++
+ include/bsd/sys/cdefs.h                    |    4 ----
+ include/bsd/unistd.h                       |    2 ++
+ include/bsd/unistd.h => src/setproctitle.c |   23 +++++++----------------
+ 5 files changed, 12 insertions(+), 20 deletions(-)
+
+commit 2a81893cc028b40f7832bf033821a1aacfaaea68
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jan 10 00:10:21 2010 +0100
+
+    Add pidfile functions
+    
+    Taken from FreeBSD.
+    
+    Remove MAXPATHLEN from ‘struct pidfh’ and allocate pf_path dynamically,
+    as some systems do not have such limits. Use dev_t instead of __dev_t.
+    Replace EDOOFUS with EINVAL.
+
+ Makefile          |    2 +
+ Versions          |    5 +
+ include/libutil.h |   12 +++
+ src/pidfile.3     |  254 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/pidfile.c     |  255 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 528 insertions(+), 0 deletions(-)
+
+commit 98a2479f0ba02a0c54ff360aa5745ff5a6939b2e
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jan 9 23:49:32 2010 +0100
+
+    Add flopen function
+    
+    Taken from FreeBSD.
+
+ Makefile          |    2 +
+ Versions          |    2 +
+ include/libutil.h |    2 +
+ src/flopen.3      |  102 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/flopen.c      |  105 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 213 insertions(+), 0 deletions(-)
+
+commit 57cc5326cf75826c5d3b415673e2574384d12850
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jan 9 20:17:16 2010 +0100
+
+    Move man pages to the same directory as the source code
+    
+    This matches BSD style source tree, and makes it easier to see what's
+    missing.
+
+ Makefile                            |    6 +++---
+ {man => src}/.gitignore             |    0
+ {man => src}/arc4random.3           |    0
+ {man => src}/arc4random_addrandom.3 |    0
+ {man => src}/arc4random_stir.3      |    0
+ {man => src}/fgetln.3               |    0
+ {man => src}/fmtcheck.3             |    0
+ {man => src}/getmode.3              |    0
+ {man => src}/humanize_number.3      |    0
+ {man => src}/mdX.3                  |    0
+ {man => src}/nlist.3                |    0
+ {man => src}/readpassphrase.3       |    0
+ {man => src}/setmode.3              |    0
+ {man => src}/strlcat.3              |    0
+ {man => src}/strlcpy.3              |    0
+ {man => src}/strmode.3              |    0
+ {man => src}/strtonum.3             |    0
+ 17 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 9e4adc4633b321bf4f3f41feeac7597162cf88f9
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Dec 13 01:52:03 2009 +0100
+
+    build: Untangle the package version from the soversion
+    
+    Add a new script to generate the package version from git. Use that for
+    the pkg-config file and the tarball name.
+
+ Makefile    |    7 +++++--
+ get-version |   48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+), 2 deletions(-)
+
+commit db406fe24ce18ddce4aa0c5985a77233347d3f27
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Dec 12 01:46:25 2009 +0100
+
+    build: Make dist use files from git plus few autogenerated ones
+    
+    To avoid forgetting to include files, we'll use “git ls-files” and will
+    include few precious autogenerated files that cannot be generated later
+    on w/o git. This includes mainly the ChangeLog.
+
+ Makefile |   10 +++-------
+ 1 files changed, 3 insertions(+), 7 deletions(-)
+
+commit 9396cc62cf01f282feef7ef9f212f73691100d04
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jan 9 19:56:45 2010 +0100
+
+    build: Do not duplicate generated filenames in several variables
+
+ Makefile |   19 +++++++++++--------
+ 1 files changed, 11 insertions(+), 8 deletions(-)
+
+commit 7a70f1b019a64902a3c8a722ee5287d72a1cbf5b
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 23:24:31 2009 +0100
+
+    Move fmtcheck and fgetln declarations to <bsd/stdio.h>
+    
+    This is were they are located on the BSDs.
+
+ Makefile                          |    1 +
+ include/bsd/{string.h => stdio.h} |   10 ++++------
+ include/bsd/stdlib.h              |    5 ++---
+ include/bsd/string.h              |    6 +++---
+ 4 files changed, 10 insertions(+), 12 deletions(-)
+
+commit ca28f28046b2cc4beb38cb4b63c75f0ac6379bcd
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 23:21:14 2009 +0100
+
+    Move setmode and getmode declarations to <bsd/unistd.h>
+    
+    This is were they are located on the BSDs.
+
+ Makefile                           |    1 +
+ include/bsd/stdlib.h               |   10 +++-------
+ include/bsd/{stdlib.h => unistd.h} |   29 +++--------------------------
+ 3 files changed, 7 insertions(+), 33 deletions(-)
+
+commit dd2756e000208ee9e4cde3373f217fc7c98f0610
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 23:13:42 2009 +0100
+
+    Mark inclusion of <time.h> from <bsd/bsd.h> deprecated
+    
+    This will be removed at some point in the future.
+
+ include/bsd/bsd.h |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 3c9182b85e785159b349106c04ccc1b4ec045350
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 23:12:26 2009 +0100
+
+    Move arc4random declarations to <bsd/stdlib.h>
+    
+    This is were they are located on the BSDs.
+
+ include/bsd/bsd.h    |    1 -
+ include/bsd/random.h |    9 ++-------
+ include/bsd/stdlib.h |    4 ++++
+ 3 files changed, 6 insertions(+), 8 deletions(-)
+
+commit 4d17a18db559a3e3485d049cddf808090f38e8be
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 23:06:27 2009 +0100
+
+    Deprecate <bsd/inet.h>
+    
+    The only function declared in that header file was inet_net_pton, which
+    is already provided by glibc. Will be removed on the next SONAME bump.
+
+ Versions           |    3 ++-
+ include/bsd/inet.h |    7 ++-----
+ 2 files changed, 4 insertions(+), 6 deletions(-)
+
+commit 7da57b293f96d0c52e5b76b539e934db49323ee2
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 23:01:02 2009 +0100
+
+    Remove traces of fgetwln, it was never included
+    
+    This function was exposed in the header file and the versioning symbol
+    file, but the actual code was never here.
+
+ Versions             |    1 -
+ include/bsd/string.h |    2 --
+ 2 files changed, 0 insertions(+), 3 deletions(-)
+
+commit 254808d9ef26c5910f981f8119af62db3d7fd72e
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 23:26:44 2009 +0100
+
+    Define NetBSD version 5.0 for .Nx to avoid groff warning
+    
+    This is a temporary workaround, the proper fix is to get groff to know
+    newest BSD versions.
+
+ man/humanize_number.3 |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 183cc3cbf1c42eedbde8cf18da52ec0004b9049f
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Dec 11 21:31:48 2009 +0100
+
+    Correct library name in man pages
+
+ man/arc4random.3      |    3 ++-
+ man/fgetln.3          |    3 ++-
+ man/fmtcheck.3        |    3 ++-
+ man/humanize_number.3 |    3 +++
+ man/mdX.3             |    3 +++
+ man/nlist.3           |    3 ++-
+ man/readpassphrase.3  |    3 +++
+ man/setmode.3         |    3 ++-
+ man/strlcpy.3         |    3 ++-
+ man/strmode.3         |    3 ++-
+ man/strtonum.3        |    3 +++
+ 11 files changed, 26 insertions(+), 7 deletions(-)
+
+commit c17c7e13c3522c6d72ceb4bc207308b8c7452b44
+Author: Thorsten Glaser <tg@mirbsd.org>
+Date:   Thu Dec 10 18:07:25 2009 +0100
+
+    Expand on API guarantee for fgetln
+    
+    OpenBSD has begun using the API guarantee that *len is not 0 if
+    the fgetln(3) return value is not NULL; document this explicitly
+    in the manpage and add a comment to the function implementation
+    that this doesn’t need to be checked because getdelim/getline have
+    similar guarantees.
+    
+    Signed-off-by: Thorsten Glaser <tg@mirbsd.org>
+
+ man/fgetln.3 |    2 +-
+ src/fgetln.c |    1 +
+ 2 files changed, 2 insertions(+), 1 deletions(-)
+
+commit a5dbef45e77f1de47b11669443ece451e90b85ab
+Author: Thorsten Glaser <tg@mirbsd.org>
+Date:   Thu Dec 10 21:02:30 2009 +0100
+
+    Make RCS macros take arguments
+    
+    This was breaking code actually using those macros.
+    
+    Signed-off-by: Thorsten Glaser <tg@mirbsd.org>
+
+ include/bsd/sys/cdefs.h |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 27842d7f773557031790f9479a417ba7c2110e96
+Author: Thorsten Glaser <tg@mirbsd.org>
+Date:   Thu Dec 10 21:00:45 2009 +0100
+
+    Track bug IDs for __unused collision
+    
+    Signed-off-by: Thorsten Glaser <tg@mirbsd.org>
+
+ include/bsd/sys/cdefs.h |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit c5398adfe22819f336eb637568050748d0227cad
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Oct 24 00:19:47 2009 +0200
+
+    Add readpassphrase function
+    
+    Taken from OpenBSD.
+
+ Makefile                     |    3 +
+ Versions                     |    2 +
+ include/bsd/readpassphrase.h |   41 +++++++++
+ man/readpassphrase.3         |  165 +++++++++++++++++++++++++++++++++++++
+ src/readpassphrase.c         |  187 ++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 398 insertions(+), 0 deletions(-)
+
+commit 538bc87998624377ba72589a0ee68e4527f82489
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Oct 24 00:17:57 2009 +0200
+
+    Add dehumanize_number function
+    
+    Taken from NetBSD.
+
+ Makefile                |    1 +
+ Versions                |    2 +
+ include/bsd/stdlib.h    |    6 +++
+ src/dehumanize_number.c |  114 +++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 123 insertions(+), 0 deletions(-)
+
+commit 04250f6a7c3e2d22a9861b82615329e1dc328c93
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Oct 24 00:15:57 2009 +0200
+
+    Add strnvis and strnunvis functions
+    
+    Taken from OpenBSD.
+
+ Versions      |    3 ++
+ include/vis.h |    2 +
+ src/unvis.c   |   41 ++++++++++++++++++++++++++++++++++++++
+ src/vis.c     |   61 +++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 105 insertions(+), 2 deletions(-)
+
+commit 5c078ce2f581e1bdfc918326051c587e0cb1d0d6
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Oct 23 23:31:07 2009 +0200
+
+    Move <bsd/ip_icmp.h> to <bsd/netinet/ip_icmp.h>
+    
+    This maps more closely the location of the real header. For
+    transitional purposes keep a <bsd/ip_icmp.h> that warns and includes
+    <bsd/netinet/ip_icmp.h>.
+
+ Makefile                            |    4 +-
+ include/bsd/bsd.h                   |    2 +-
+ include/bsd/ip_icmp.h               |  202 +++--------------------------------
+ include/bsd/{ => netinet}/ip_icmp.h |    0
+ 4 files changed, 21 insertions(+), 187 deletions(-)
+
+commit 614eb0402a2f8f6f16da9e293aa3c5203143fd38
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Oct 12 01:43:02 2009 +0200
+
+    Add new <bsd/sys/tree.h> header
+
+ Makefile               |    1 +
+ include/bsd/bsd.h      |    1 +
+ include/bsd/sys/tree.h |  765 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 767 insertions(+), 0 deletions(-)
+
+commit b6e8469059c447c17cd84e59dbe5d51cd178376f
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Oct 12 01:47:54 2009 +0200
+
+    Move <bsd/queue.h> to <bsd/sys/queue.h>
+    
+    This maps more closely the location of the real header. For
+    transitional purposes keep a <bsd/queue.h> that warns and includes
+    <bsd/sys/queue.h>.
+
+ Makefile                      |    3 +-
+ include/bsd/bsd.h             |    2 +-
+ include/bsd/queue.h           |  625 ++---------------------------------------
+ include/bsd/{ => sys}/queue.h |    0
+ 4 files changed, 22 insertions(+), 608 deletions(-)
+
+commit d3e14ea99e39a2916928afc50a7cf29e152dcb75
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Oct 23 23:04:42 2009 +0200
+
+    Move <bsd/cdefs.h> to <bsd/sys/cdefs.h>
+    
+    This maps more closely the location of the real header. For
+    transitional purposes keep a <bsd/cdefs.h> that warns and includes
+    <bsd/sys/cdefs.h>.
+
+ Makefile                      |    4 ++-
+ include/bsd/bsd.h             |    2 +-
+ include/bsd/cdefs.h           |   67 +++-------------------------------------
+ include/bsd/{ => sys}/cdefs.h |    0
+ 4 files changed, 9 insertions(+), 64 deletions(-)
+
+commit e51be45c4086dcf9e533899cf2ca4e9250773a2d
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Oct 12 01:43:52 2009 +0200
+
+    Update <sys/queue.h>
+    
+    Taken from FreeBSD.
+
+ include/bsd/queue.h |  191 ++++++++++++++++++++++++++++++++++----------------
+ 1 files changed, 130 insertions(+), 61 deletions(-)
+
+commit 56ddcfe65ac1526fe9c048c50f836cedd434dbac
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Oct 11 21:07:53 2009 +0200
+
+    Add strtonum function
+    
+    Taken from FreeBSD.
+
+ Makefile             |    2 +
+ Versions             |    4 +
+ include/bsd/stdlib.h |    3 +
+ man/strtonum.3       |  156 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/strtonum.c       |   68 ++++++++++++++++++++++
+ 5 files changed, 233 insertions(+), 0 deletions(-)
+
+commit 1bf8b96ac8fd99a4764ef13f5234853a943f3140
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Oct 24 01:06:09 2009 +0200
+
+    Do not append a slash after DESTDIR
+
+ Makefile |   26 +++++++++++++-------------
+ 1 files changed, 13 insertions(+), 13 deletions(-)
+
+commit 16e6ac99fefbb297299e7e4c876c860d11a4b5b8
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Oct 11 20:54:23 2009 +0200
+
+    Update git web interface URL
+    
+    FreeDesktop.Org switched from gitweb to cgit.
+
+ README |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 56f2e55b7afd257b56773048129093fce19c1a62
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Aug 30 12:18:11 2009 +0200
+
+    Release libbsd 0.1.6
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 5ac14531b5ffc9e9ea5c890a21e562bf664e0504
+Author: Hirokazu Takata <takata@linux-m32r.org>
+Date:   Sun Aug 30 12:16:01 2009 +0200
+
+    Fix typos in M32R local-elf.h endian definitions
+
+ src/local-elf.h |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 2543c5a78bc84eca4af52d11b808dc848601e501
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Jul 17 13:37:38 2009 +0200
+
+    Release libbsd 0.1.5
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 33ef70b9e170536115a4139df2c53f6af935418f
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Jul 17 13:35:37 2009 +0200
+
+    Add __pure2 dummy macro
+
+ include/bsd/cdefs.h |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+commit 8ef0ecdf4431b84d9419d89f9460a38a24be19d7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Jul 17 13:34:30 2009 +0200
+
+    Add more dummy id macros
+
+ include/bsd/cdefs.h |   16 ++++++++++++++++
+ 1 files changed, 16 insertions(+), 0 deletions(-)
+
+commit 6660397589657e95cfa67cf045814795fd4a043a
+Author: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Date:   Fri Jul 17 12:50:07 2009 +0200
+
+    Fix typos in AVR32 and SH local-elf.h endian definitions
+
+ src/local-elf.h |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 391c75b4270a6bde57b316e557d3ae6eec017969
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri May 29 02:48:00 2009 +0200
+
+    Release libbsd 0.1.4
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 45783ae4ca20b0b55f549785e5f63209750b60ed
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri May 29 02:45:54 2009 +0200
+
+    Define N_SYMSIZE in case the system does not do it
+    
+    Fixes build failures on some non-Linux ports.
+    
+    Based-on-patch-by: Petr Salinger <Petr.Salinger@seznam.cz>
+
+ src/nlist.c |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+commit 5902730a03a2df02a0ad71c62ce83046fc6c2bb8
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri May 29 02:28:49 2009 +0200
+
+    Create a relative symlink for .so if libdir and usrlibdir are the same
+
+ Makefile |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+
+commit 42601170ace98fe62c1f63a4d1b820a0bacf3e1a
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 10:02:26 2009 +0200
+
+    Change @libdir@ in the pkg-config file to be $(usrlibdir)
+    
+    The variable in the .pc file points to the directory where the .so
+    symlink is present, which is never going to be something like /lib,
+    but something like /usr/lib.
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 0bd48c4a4d5382fd4d1e71b63b0d875637765dc1
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 09:57:14 2009 +0200
+
+    Preserve the variables unexpanded in the pkg-config file
+
+ Makefile |   23 +++++++++++------------
+ 1 files changed, 11 insertions(+), 12 deletions(-)
+
+commit d03b2b07fc7f8084e8f56b69dc65a11c74caf5b7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 09:37:39 2009 +0200
+
+    Release libbsd 0.1.3
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit cb1346e5b3bdeb98e4118053e2520ae68d2111b1
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 09:25:13 2009 +0200
+
+    Export public functions as extern C
+
+ include/bsd/err.h    |    4 ++++
+ include/bsd/getopt.h |    4 ++++
+ include/bsd/inet.h   |    5 ++++-
+ include/bsd/random.h |    5 ++++-
+ include/bsd/stdlib.h |    5 ++++-
+ include/bsd/string.h |    3 +++
+ 6 files changed, 23 insertions(+), 3 deletions(-)
+
+commit 61fa98ea9e288abb4aa5b12be8fed9f73e2a1a9c
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 09:12:45 2009 +0200
+
+    Add missing <stdarg.h> include in <bsd/err.h>
+
+ include/bsd/err.h |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit 931e04343038cfc543f6d931488e597c9bee2d7e
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 08:56:34 2009 +0200
+
+    Add new __RCSID macro
+    
+    Define it to nothing, so that source imported from BSDs can be easily
+    compiled w/o needing to modify them.
+
+ include/bsd/cdefs.h |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
+
+commit f984a7006bd8b456d4ea8aebc717e4e758676d7c
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 06:57:50 2009 +0200
+
+    Release libbsd 0.1.2
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 326a3a76193161f096990a073d97d288f73f3408
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 06:57:03 2009 +0200
+
+    Install humanize_number(3) man page
+
+ Makefile |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit e4aff3d9fc9e22287cfeab040e4b968d53a9255e
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 06:41:42 2009 +0200
+
+    Use N_SYMSIZE instead of directly accessing ‘struct exec’
+    
+    On Linux alpha ‘struct exec’ does not have an a_syms member, and the
+    N_SYMSIZE is mapped to 0.
+
+ src/nlist.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit c3feeb0092ace00f95aa981fc907ab654afaa5f7
+Author: Gerardo Exequiel Pozzi <vmlinuz386@yahoo.com.ar>
+Date:   Fri May 22 20:44:35 2009 -0300
+
+    Add some man page links
+    
+    Add man page links for strlcat, getmode and arc4random_*.
+    
+    Signed-off-by: Gerardo Exequiel Pozzi <vmlinuz386@yahoo.com.ar>
+
+ Makefile                   |    4 ++++
+ man/arc4random_addrandom.3 |    1 +
+ man/arc4random_stir.3      |    1 +
+ man/getmode.3              |    1 +
+ man/strlcat.3              |    1 +
+ 5 files changed, 8 insertions(+), 0 deletions(-)
+
+commit 80c3954e3cf66efa907b8a8862632f56eeea9543
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 06:23:01 2009 +0200
+
+    Use the correct path when including a.out.h
+    
+    Reported-by: Aurélien Jarno <aurelien@aurel32.net>
+
+ include/nlist.h |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 4c3e03efebe725b22fe52a981235314ae6ee4218
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon May 25 06:22:22 2009 +0200
+
+    Add man/md5.3bsd to .gitignore
+
+ man/.gitignore |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit 9b30dae90952053dd0be1740d0a6f494c638b8dd
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Thu May 21 05:04:09 2009 +0200
+
+    Fix typos (‘ELFDATA2MSG’ → ‘ELFDATA2MSB’)
+
+ src/local-elf.h |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 25dd60b9cc5f0a5ae867f9e7215cda7c28e89562
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed May 20 05:14:32 2009 +0200
+
+    Release libbsd 0.1.1
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 5b16707e95d89d6a6b485bf3b26d4d340e2d9c6a
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed May 20 05:13:31 2009 +0200
+
+    Install nlist header and man page
+
+ Makefile |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+commit 1f0b016e97611a35151eca4952277211a0ee4656
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed May 20 04:20:21 2009 +0200
+
+    Use UTF-8 copyright symbols for non-imported files
+
+ include/bsd/bsd.h    |    2 +-
+ include/bsd/cdefs.h  |    2 +-
+ include/bsd/err.h    |    2 +-
+ include/bsd/getopt.h |    2 +-
+ include/bsd/inet.h   |    2 +-
+ include/bsd/random.h |    2 +-
+ include/bsd/stdlib.h |    6 +++---
+ include/bsd/string.h |    2 +-
+ include/nlist.h      |    2 +-
+ src/bsd_getopt.c     |    2 +-
+ src/err.c            |    2 +-
+ src/fgetln.c         |    4 ++--
+ src/local-elf.h      |    2 +-
+ src/progname.c       |    2 +-
+ 14 files changed, 17 insertions(+), 17 deletions(-)
+
+commit dcaec44a6fd4ede2b8d8050a7c05185c28f66917
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed May 20 04:11:57 2009 +0200
+
+    Add nlist function
+
+ Makefile        |    1 +
+ Versions        |    3 +
+ include/nlist.h |   38 +++++
+ man/nlist.3     |   77 ++++++++++
+ src/local-elf.h |  197 ++++++++++++++++++++++++++
+ src/nlist.c     |  419 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 735 insertions(+), 0 deletions(-)
+
+commit 8dbfb3529b0253ba8067042dabaebe3ad89cb039
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri May 15 21:40:45 2009 +0200
+
+    Add strmode function
+
+ Makefile             |    6 +-
+ Versions             |    5 ++
+ include/bsd/string.h |    4 +-
+ man/strmode.3        |  144 ++++++++++++++++++++++++++++++++++++++++++++++++
+ src/strmode.c        |  149 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 305 insertions(+), 3 deletions(-)
+
+commit 74ae34e792a08de78ab671a683abdf48c27eccd3
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri May 15 21:26:09 2009 +0200
+
+    Fix buffer leaks in fgetln
+    
+    Cache the size and the buffer allocated by getline as static variables.
+
+ src/fgetln.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit deb9f56ceb560f96448ff9bfa1befdf7ed9849de
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri May 15 21:23:03 2009 +0200
+
+    Change fgetln to return the correct length value
+    
+    Set len to 0 on error conditions to mimmic FreeBSD behaviour, and return
+    the amount of read characters on success, instead of the allocated size
+    by getline.
+    
+    Reported-by: Jief L. <jief1.l@gmail.com>
+
+ src/fgetln.c |   17 +++++++++--------
+ 1 files changed, 9 insertions(+), 8 deletions(-)
+
+commit aefc6f441aa1ae51135fea33d25572e39222cce7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 26 22:42:39 2008 +0300
+
+    Do not include .gitignore in the dist tarball
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit f2d93325e6d073681c55f6959bed3a172bc15989
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 26 22:39:29 2008 +0300
+
+    Install md5.3 as md5.3bsd
+    
+    This man page is pretty common in other source projects, so we use a
+    suffix to distinguish it.
+
+ Makefile |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 5e1a78211983e2547838ce3fd2dd607e0a320393
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 26 22:36:14 2008 +0300
+
+    Add a TODO list
+
+ TODO |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+commit 4c9c8ed74c946338310a46cc41122b904d0b934d
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 26 22:35:31 2008 +0300
+
+    Add a new header file to expose inet_net_pton prototype
+
+ Makefile           |    1 +
+ include/bsd/inet.h |   35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+), 0 deletions(-)
+
+commit 6dc84320cc267b5ed6c2e1de9e4b9d49e465dc54
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 26 22:25:22 2008 +0300
+
+    Add a micro version part
+
+ Makefile |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+commit acc23243fb450adb18f4c0a2b28bbf9ebae11053
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 08:00:17 2008 +0300
+
+    Unify description
+
+ libbsd.pc.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 9a2b946fce5c6606f45c4f7627645701448d39f4
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:59:14 2008 +0300
+
+    Move LIB_PKGCONFIG dependency to the libs target
+
+ Makefile |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit ad52f2eb4c5d8370298de587f090e84727d8bcf2
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:55:57 2008 +0300
+
+    Use sigprocmask instead of _sigprocmask
+
+ src/setmode.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 2729ca824d2c277bd1e32cebfe43739996705087
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:53:03 2008 +0300
+
+    Define default CFLAGS overridable by the environment
+
+ Makefile |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+commit 83210a83a4a13115ce653ec5f1419279a63191f7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:48:10 2008 +0300
+
+    Switch remaining variables to single expanded ones
+
+ Makefile |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 69c94c50d98e3aa6ffbaaa9d29e5c257adc58865
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:46:53 2008 +0300
+
+    Remove useless comment header
+
+ Makefile |    4 ----
+ 1 files changed, 0 insertions(+), 4 deletions(-)
+
+commit 2d5c088a173913a01daa3f5042d9fa6f245d958c
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:46:37 2008 +0300
+
+    Move each groups of related files to their own line
+
+ Makefile |   49 ++++++++++++++++++++++++++++++++++++++++---------
+ 1 files changed, 40 insertions(+), 9 deletions(-)
+
+commit 3de930e682026512f7333194abcefdeb621e6adc
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:41:07 2008 +0300
+
+    Make action targets PHONY
+
+ Makefile |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
+
+commit e9cb0d1cf4556db22b755a1fa34c9c219b78d2f0
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:37:13 2008 +0300
+
+    New README file
+
+ Makefile |    2 +-
+ README   |   32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 33 insertions(+), 1 deletions(-)
+
+commit 87d6d656335858cd0768aa5dd30b4d0d5967bd10
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:31:59 2008 +0300
+
+    Automatically generate libbsd.pc from libbsd.pc.in
+
+ .gitignore                |    1 +
+ Makefile                  |   14 ++++++++++++--
+ libbsd.pc => libbsd.pc.in |   10 +++++-----
+ 3 files changed, 18 insertions(+), 7 deletions(-)
+
+commit ff8539bc035800ff551174b99bb17da27890b660
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:29:24 2008 +0300
+
+    Add new path variables
+
+ Makefile |   33 ++++++++++++++++++++++-----------
+ 1 files changed, 22 insertions(+), 11 deletions(-)
+
+commit 8c7f053ab0d9a3f54a38b752ffbcc2c6ef226f8c
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 07:00:19 2008 +0300
+
+    Automatically generate the ChangeLog on 'make dist'
+
+ .gitignore |    1 +
+ Makefile   |    9 +++++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+commit c1615a50d35da13c174a9e162995de7fcb024773
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 06:46:18 2008 +0300
+
+    Define a LIB_PKGCONFIG variable
+
+ Makefile |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+commit e42791d0d3e09848da10e2062f5e32d8b52effc7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 06:41:10 2008 +0300
+
+    Move filename related variables to the beginning of the file
+    
+    Switch them to single expanded varibles.
+
+ Makefile |   11 +++++------
+ 1 files changed, 5 insertions(+), 6 deletions(-)
+
+commit 1e1ab1875895b432966686402ac3debd2b384256
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sat Jul 12 06:35:45 2008 +0300
+
+    Define a LIB_VERSION variable
+
+ Makefile |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+commit ba7ece7791d2617de8693a877b517260c51f5dc7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 09:25:34 2008 +0300
+
+    Create an armored detached signature on 'make dist'
+
+ Makefile |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+commit 84d311d03872a1c18305abe8218c0a3d3f5434d2
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 09:07:58 2008 +0300
+
+    Remove link_addr and link_ntoa symbols from the version script
+
+ Versions |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 38829bdc8b5dd17d8d10a2daf350605e7c6f70a4
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 09:07:03 2008 +0300
+
+    Add new setmode and getmode functions from FreeBSD
+
+ Makefile             |    3 +-
+ Versions             |    4 +
+ include/bsd/stdlib.h |    9 +
+ man/setmode.3        |  114 +++++++++++++
+ src/setmode.c        |  444 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 573 insertions(+), 1 deletions(-)
+
+commit a5f7d1a8f12b0ce3b76a23dccb8a5ffdc31ebf39
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 09:04:51 2008 +0300
+
+    Include the rest of the header files
+
+ include/bsd/bsd.h |    6 +++++-
+ 1 files changed, 5 insertions(+), 1 deletions(-)
+
+commit 8b95dc5865f26d746651479fd893e77e1f594b56
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 09:04:27 2008 +0300
+
+    Disable __bounded__ __attribute__
+
+ include/bsd/cdefs.h |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+commit 96358a2ad649ec2520357470abe3ae86837bf68b
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 08:47:09 2008 +0300
+
+    Add support for 'make dist'
+
+ Makefile |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+
+commit fafffd1f7eebdf73a5e3ceb343025272493ebf21
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 08:26:07 2008 +0300
+
+    fgetln: Fix coding style
+
+ src/fgetln.c |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 47109e39d5995c7addaa932625fb0ea1e0e8200a
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 08:22:30 2008 +0300
+
+    fgetln: Fix function to make it actually work
+    
+    Reported by Thorsten Glaser.
+
+ src/fgetln.c |   10 ++++------
+ 1 files changed, 4 insertions(+), 6 deletions(-)
+
+commit da92787d48723ef900d3976072f37960d7a96d8b
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 07:46:23 2008 +0300
+
+    Ansify function arguments
+
+ src/fgetln.c |    6 ++----
+ 1 files changed, 2 insertions(+), 4 deletions(-)
+
+commit fc163cee2fd148ef121e2481dfc08065b36b6b2b
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 07:23:49 2008 +0300
+
+    Move version and library name to the beginning of the file
+
+ Makefile |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 1512d0d4ab508d47aff2d301d90317c11dd50846
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 07:22:30 2008 +0300
+
+    Renumber 4th clause from BSD license to 3rd
+    
+    Those files have only three clauses.
+
+ include/bsd/ip_icmp.h |    2 +-
+ include/bsd/queue.h   |    2 +-
+ include/vis.h         |    2 +-
+ man/fgetln.3          |    2 +-
+ src/heapsort.c        |    2 +-
+ src/unvis.c           |    2 +-
+ src/vis.c             |    2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
+
+commit 7b1c361f4d09522b5af9398814f2e809f42d7b9b
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 07:17:20 2008 +0300
+
+    Remove RCS tag
+
+ Makefile |    2 --
+ 1 files changed, 0 insertions(+), 2 deletions(-)
+
+commit b0f64624bb41ccc00d80f218acb0d2758dd8d5d3
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jul 9 07:16:20 2008 +0300
+
+    Add missing license headers
+    
+    With permission from Robert Millan and Aurelien Jarno.
+
+ include/bsd/err.h    |   26 ++++++++++++++++++++++++++
+ include/bsd/getopt.h |   26 ++++++++++++++++++++++++++
+ include/bsd/stdlib.h |   27 +++++++++++++++++++++++++++
+ 3 files changed, 79 insertions(+), 0 deletions(-)
+
+commit efa9658ba60be9a48f7a750a6b93932462757a97
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:51:53 2008 +0300
+
+    Remove link_addr and link_ntoa functions
+    
+    The address familiy used is kernel dependent, so the application will
+    have to be ported regardless.
+
+ Makefile       |    4 +-
+ src/linkaddr.c |  156 --------------------------------------------------------
+ 2 files changed, 2 insertions(+), 158 deletions(-)
+
+commit a5709cbc88543a894fcb12da181b33e7ccc68a7b
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:47:58 2008 +0300
+
+    Add license header
+
+ include/libutil.h |   38 ++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 38 insertions(+), 0 deletions(-)
+
+commit bf4eeb29f049e374b33b788a8df02357d659183c
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:44:18 2008 +0300
+
+    Add arc4random_stir and arc4random_addrandom functions
+
+ Makefile             |    2 +-
+ Versions             |    2 ++
+ include/bsd/random.h |    2 ++
+ src/arc4random.c     |   28 ++++++++++++++++++++++++++++
+ 4 files changed, 33 insertions(+), 1 deletions(-)
+
+commit 26ab4750eebff515ca5717ee272a79fa3866ab55
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:25:48 2008 +0300
+
+    Add a pkg-config file
+
+ Makefile  |    2 ++
+ libbsd.pc |   11 +++++++++++
+ 2 files changed, 13 insertions(+), 0 deletions(-)
+
+commit b37f1039efda597cf821be7be88b280aaf14c2b9
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:19:41 2008 +0300
+
+    Replace current md5 code with one from MirBSD and OpenBSD
+    
+    This adds the following public functions:
+    MD5Transform, MD5End, MD5File, MD5FileChunk, MD5Data
+
+ Makefile            |   20 +++-
+ Versions            |    6 +
+ include/bsd/md5.h   |   77 ++++++------
+ man/.gitignore      |    1 +
+ man/mdX.3           |  223 +++++++++++++++++++++++++++++++++
+ src/hash/.gitignore |    1 +
+ src/hash/helper.c   |  100 +++++++++++++++
+ src/hash/md5.c      |  248 +++++++++++++++++++++++++++++++++++++
+ src/md5.copyright   |   21 ---
+ src/md5c.c          |  338 ---------------------------------------------------
+ 10 files changed, 636 insertions(+), 399 deletions(-)
+
+commit 20bf55ffa5a56d3ee062aa199e5b3033ea29c52a
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:09:51 2008 +0300
+
+    Include missing stddef.h
+
+ include/bsd/string.h |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit d699e4bc0e5196520dcb23e6768d977570de42f8
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:05:23 2008 +0300
+
+    Add license header
+    
+    With Hector's agreement.
+
+ src/fgetln.c |   26 ++++++++++++++++++++++++++
+ 1 files changed, 26 insertions(+), 0 deletions(-)
+
+commit 3b51d12e1fd7bbdde21dc2fe3fc720a75cf9d8c7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 08:00:10 2008 +0300
+
+    Add a .gitignore file
+
+ .gitignore |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+commit d033e58045ab39b159e74d390eda76c3988a06fd
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 07:59:43 2008 +0300
+
+    Remove cruft macros and includes
+
+ include/bsd/bsd.h |   26 --------------------------
+ 1 files changed, 0 insertions(+), 26 deletions(-)
+
+commit c14d23b5d749d8f06fc857003f848f25ee87638f
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Jun 18 07:49:44 2008 +0300
+
+    Add license header
+
+ include/bsd/bsd.h    |   26 ++++++++++++++++++++++++++
+ include/bsd/cdefs.h  |   26 ++++++++++++++++++++++++++
+ include/bsd/random.h |   26 ++++++++++++++++++++++++++
+ include/bsd/string.h |   26 ++++++++++++++++++++++++++
+ 4 files changed, 104 insertions(+), 0 deletions(-)
+
+commit d83f5791e9a0b5d4c4004c8406c27ad8cb3134bd
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Jun 13 06:49:03 2008 +0300
+
+    Remove ChangeLog file
+
+ ChangeLog |  174 -------------------------------------------------------------
+ 1 files changed, 0 insertions(+), 174 deletions(-)
+
+commit acb577d6c150370ea17fe5a07bd1361bfa4d18e2
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Jun 13 05:25:57 2008 +0300
+
+    Sync humanize_number from NetBSD
+    
+    Add the missing man page.
+
+ man/humanize_number.3 |  166 +++++++++++++++++++++++++++++++++++++++++++++++++
+ src/humanize_number.c |    9 ++-
+ 2 files changed, 173 insertions(+), 2 deletions(-)
+
+commit 0be77c90b57f7c1af8796701aa294258400f1cc4
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Jun 13 05:23:39 2008 +0300
+
+    Convert TNF licenses to new 2 clause variant
+    
+    This follows NetBSD upstream:
+    <http://mail-index.netbsd.org/source-changes/2008/04/30/msg005553.html>
+
+ man/fmtcheck.3        |    7 -------
+ src/fmtcheck.c        |    7 -------
+ src/humanize_number.c |    7 -------
+ 3 files changed, 0 insertions(+), 21 deletions(-)
+
+commit 8ca3d66d47c1a9685835dd8d91c18289f4c6ed14
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sun Mar 16 17:20:48 2008 +0000
+
+    Add license header
+
+ src/bsd_getopt.c |   26 ++++++++++++++++++++++++++
+ 1 files changed, 26 insertions(+), 0 deletions(-)
+
+commit 532aec99b6dccbf02fe9504ba9e852f6da7dbbc0
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sun Mar 16 16:49:41 2008 +0000
+
+    Relicense err.c and progname.c to avoid trouble with 4-clause BSD code
+
+ src/err.c      |   41 +++++++++++++++++++++++++----------------
+ src/progname.c |   41 +++++++++++++++++++++++++----------------
+ 2 files changed, 50 insertions(+), 32 deletions(-)
+
+commit 44706ade0647dc5a77213529ab234a2007eb06e7
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Mar 16 16:46:29 2008 +0000
+
+    Remove UC Berkeley advertising clause
+    
+    As per <ftp://ftp.cs.berkeley.edu/pub/4bsd/README.Impt.License.Change>.
+
+ ChangeLog    |    1 +
+ man/fgetln.3 |    4 ----
+ 2 files changed, 1 insertions(+), 4 deletions(-)
+
+commit f5b8317051c54df10b9bb6ce83d82dcb8dc19439
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Mar 16 14:30:51 2008 +0000
+
+    Remove UC Berkeley advertising clause
+    
+    As per <ftp://ftp.cs.berkeley.edu/pub/4bsd/README.Impt.License.Change>.
+
+ ChangeLog      |    9 +++++++++
+ include/vis.h  |    4 ----
+ src/heapsort.c |    4 ----
+ src/linkaddr.c |    4 ----
+ src/unvis.c    |    4 ----
+ src/vis.c      |    4 ----
+ 6 files changed, 9 insertions(+), 20 deletions(-)
+
+commit c5793d47d19a07f42c5b32e1fc4672222e9af8fd
+Author: Petr Salinger <Petr.Salinger@seznam.cz>
+Date:   Tue Dec 18 14:20:20 2007 +0000
+
+    bsd/queue.h: Sync with current glibc variant from GNU/kFreeBSD
+
+ ChangeLog           |    4 ++++
+ include/bsd/queue.h |    4 ++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit ac32eefec50a1f9a6c4a75b7467731fc99a0a109
+Author: Petr Salinger <Petr.Salinger@seznam.cz>
+Date:   Tue Jan 9 13:26:33 2007 +0000
+
+    bsd/bsd.h: Cleanup
+
+ include/bsd/bsd.h |   54 ++++------------------------------------------------
+ 1 files changed, 5 insertions(+), 49 deletions(-)
+
+commit 2ef27385c5a4d757f19a07096bbcc2d0a3e36d85
+Author: Aurelien Jarno <aurel32@debian.org>
+Date:   Tue Nov 7 23:41:16 2006 +0000
+
+    link_addr: New function
+
+ ChangeLog      |    7 +++
+ Makefile       |    4 +-
+ Versions       |    1 +
+ src/linkaddr.c |  160 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 170 insertions(+), 2 deletions(-)
+
+commit 30176335f9e09f038c107bbc78eaba8b5c2cd057
+Author: Petr Salinger <Petr.Salinger@seznam.cz>
+Date:   Fri Aug 25 13:39:32 2006 +0000
+
+    humanize_number: New function
+
+ ChangeLog             |    7 +++
+ Makefile              |    5 +-
+ Versions              |    1 +
+ include/libutil.h     |   22 ++++++++
+ src/humanize_number.c |  145 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 178 insertions(+), 2 deletions(-)
+
+commit 326d210f1774a30e309062c3d5819e5868e4ee4b
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Thu Mar 30 13:53:34 2006 +0000
+
+    Revert 1d87476250217a87319df48a8f473415c0515106
+
+ src/progname.c |   12 +++---------
+ 1 files changed, 3 insertions(+), 9 deletions(-)
+
+commit 1d87476250217a87319df48a8f473415c0515106
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Thu Mar 30 11:14:56 2006 +0000
+
+    Duplicate setprogname argument
+    
+    For some reason, accessing the argv vector directly may cause SIGSEV.
+
+ src/progname.c |   12 +++++++++---
+ 1 files changed, 9 insertions(+), 3 deletions(-)
+
+commit 3462d1261f2cd9ff26faaf4a0027c661b37af999
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Wed Mar 29 13:55:22 2006 +0000
+
+    Add heapsort
+
+ ChangeLog            |    7 ++
+ Makefile             |    2 +-
+ Versions             |    1 +
+ include/bsd/stdlib.h |    2 +
+ src/heapsort.c       |  179 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 190 insertions(+), 1 deletions(-)
+
+commit daccb6a8507c6eb35bb08177834ae15150acddab
+Author: Aurelien Jarno <aurel32@debian.org>
+Date:   Sun Mar 26 17:10:13 2006 +0000
+
+    Fix some c++isms
+
+ src/inet_net_pton.c |    2 +-
+ src/md5c.c          |    6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+commit 1e28f3480721c916b89e643c5cdfceaef69ad0f1
+Author: Aurelien Jarno <aurel32@debian.org>
+Date:   Sun Mar 26 17:09:24 2006 +0000
+
+    Directly call the function fmtcheck instead of using __weak_reference
+
+ src/fmtcheck.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit d493e6cd987a2d0c6b7d1df1c28883f1974260a9
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sat Mar 25 20:03:00 2006 +0000
+
+    Move shared library to /lib
+    
+    Needed by binaries in /bin and /sbin.
+
+ Makefile |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+commit 37c5b9a2af298b299ca6553f44dbea15f3b7b796
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sun Mar 19 11:12:07 2006 +0000
+
+    Fix install paths so that /usr/include also works
+
+ Makefile |    3 +--
+ 1 files changed, 1 insertions(+), 2 deletions(-)
+
+commit 40bb012fee0ab5bea95af3e3de49686562ff0dba
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sun Mar 19 10:25:49 2006 +0000
+
+    Add vis and unvis
+
+ ChangeLog     |    8 ++
+ Makefile      |    8 +-
+ Versions      |    2 +
+ include/vis.h |   90 ++++++++++++++++++
+ src/unvis.c   |  291 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/vis.c     |  199 +++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 594 insertions(+), 4 deletions(-)
+
+commit a84fcb45ef036cb0c7ea6c4933ecccc9e8edeca0
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sat Mar 18 12:53:39 2006 +0000
+
+    Fix syntax error
+
+ src/progname.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 31461c563abc61807e8fbbacdb70d6e94f79edce
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sat Mar 18 09:19:50 2006 +0000
+
+    Initialize __progname as NULL
+
+ src/progname.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit 5bd834027d4c6b520ee058d753b479e31e6faf26
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Fri Mar 17 19:55:21 2006 +0000
+
+    Add getprogname and setprogname
+
+ ChangeLog            |    7 +++++++
+ Makefile             |    2 +-
+ Versions             |    1 +
+ include/bsd/stdlib.h |    7 ++++++-
+ src/progname.c       |   36 ++++++++++++++++++++++++++++++++++++
+ 5 files changed, 51 insertions(+), 2 deletions(-)
+
+commit 1e8b819b4579d85654d46df2c16f3a58e9b6b878
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Wed Feb 15 20:41:06 2006 +0000
+
+    Disable __unused
+    
+    It conflicts with a struct member in a Linux header.
+
+ ChangeLog           |    5 +++++
+ include/bsd/cdefs.h |    4 ++++
+ 2 files changed, 9 insertions(+), 0 deletions(-)
+
+commit 67e48af044abf058167a60b79d4165f0431fac5a
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 07:01:21 2006 +0000
+
+    Remove unused includes and protect header
+
+ ChangeLog            |    5 +++++
+ include/bsd/getopt.h |    6 ++++++
+ include/bsd/stdlib.h |    3 ---
+ 3 files changed, 11 insertions(+), 3 deletions(-)
+
+commit 8a2e8584d9a46c0bf8ba431098741cee7e548ddc
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 06:55:53 2006 +0000
+
+    Revert 39db45e45a8d49a92d1d897a532e48480e561f75
+
+ ChangeLog |    4 ----
+ Versions  |    2 +-
+ 2 files changed, 1 insertions(+), 5 deletions(-)
+
+commit c9e733b215be209ea028453e10dace2d91a79887
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 06:45:41 2006 +0000
+
+    Remove commented out macros
+
+ ChangeLog         |    4 ++++
+ include/bsd/bsd.h |   14 --------------
+ 2 files changed, 4 insertions(+), 14 deletions(-)
+
+commit 815047342080dc3e8eff1daac0a4694d06e1ae03
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 06:43:04 2006 +0000
+
+    Move some macros to cdefs.h
+
+ ChangeLog           |    8 ++++++++
+ Makefile            |    2 +-
+ include/bsd/bsd.h   |   14 +-------------
+ include/bsd/cdefs.h |   34 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 44 insertions(+), 14 deletions(-)
+
+commit 5372b7368573739ee3bd38c5bb76b187e8241279
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 05:39:29 2006 +0000
+
+    Move sources to src/
+
+ ChangeLog                              |   24 ++++++++++++++++++++++++
+ Makefile                               |    5 +++--
+ arc4random.c => src/arc4random.c       |    0
+ bsd_getopt.c => src/bsd_getopt.c       |    0
+ err.c => src/err.c                     |    0
+ fgetln.c => src/fgetln.c               |    0
+ fmtcheck.c => src/fmtcheck.c           |    0
+ inet_net_pton.c => src/inet_net_pton.c |    0
+ md5.copyright => src/md5.copyright     |    0
+ md5c.c => src/md5c.c                   |    0
+ strlcat.c => src/strlcat.c             |    0
+ strlcpy.c => src/strlcpy.c             |    0
+ 12 files changed, 27 insertions(+), 2 deletions(-)
+
+commit 6be6380e10b4f87575060e7839e530642a0182fa
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 05:33:38 2006 +0000
+
+    Add missing %
+
+ Makefile |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 7bd6e03ae0a4d2b039ba6e8fc3b53104dba24512
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 05:26:48 2006 +0000
+
+    Makefile: Cleanup
+    
+    (LIB_SRCS): Line wrap.
+    (LIB_INCLUDES): List only the files, automatically prefix the dir.
+    (LIB_MANS): Likewise.
+
+ ChangeLog |    6 ++++++
+ Makefile  |   10 +++++++---
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+
+commit 39db45e45a8d49a92d1d897a532e48480e561f75
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 05:22:15 2006 +0000
+
+    Remove optreset
+
+ ChangeLog |    4 ++++
+ Versions  |    2 +-
+ 2 files changed, 5 insertions(+), 1 deletions(-)
+
+commit bddcccbcdf4da266893d6f8f5bef807bf39f9bfd
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Tue Feb 14 05:17:19 2006 +0000
+
+    Fix ChangeLog format
+
+ ChangeLog |   51 +++++++++++++++++++++++++++------------------------
+ 1 files changed, 27 insertions(+), 24 deletions(-)
+
+commit 7aed0593e00f6369d0b29fbc8cfde653e5187c60
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Mon Feb 13 20:56:47 2006 +0000
+
+    Add bsd_getopt
+
+ ChangeLog            |    8 ++++++++
+ Makefile             |    4 ++--
+ Versions             |    1 +
+ bsd_getopt.c         |   15 +++++++++++++++
+ include/bsd/getopt.h |    4 ++++
+ 5 files changed, 30 insertions(+), 2 deletions(-)
+
+commit 7a8c1c864879b3162e1048ddcb3ad59540bb0e0e
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Mon Feb 13 20:45:13 2006 +0000
+
+    Use the same macro (_SYS_QUEUE_H) as <sys/queue.h> for header protection
+    
+    This prevents collisions.
+
+ include/bsd/queue.h |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 019b5818da4db2c7a053c0b4e065b2fd17979f48
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Mon Feb 13 20:25:22 2006 +0000
+
+    Revert c849ba32af231fba36f4500d0d3290821f4dd7b7
+    
+    Will use bsd_getopt() wrapper instead.
+
+ ChangeLog      |    8 --------
+ Makefile       |    2 +-
+ Versions       |    4 ++--
+ reset_getopt.c |   51 ---------------------------------------------------
+ 4 files changed, 3 insertions(+), 62 deletions(-)
+
+commit 34b269a1cfb9218ba54c05ec2e8148808ebc419d
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Mon Feb 13 13:02:11 2006 +0000
+
+    Fix that FIXME
+
+ reset_getopt.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+commit c849ba32af231fba36f4500d0d3290821f4dd7b7
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Mon Feb 13 09:02:17 2006 +0000
+
+    reset_getopt: New function (borrowed from e2fsprogs)
+
+ ChangeLog      |    8 ++++++++
+ Makefile       |    2 +-
+ Versions       |    4 ++--
+ reset_getopt.c |   51 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 62 insertions(+), 3 deletions(-)
+
+commit 19cc95400b7761073ee3503593a84f299524064a
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Sat Feb 11 07:06:17 2006 +0000
+
+    bsd/queue.h: Replace with patched copy of glibc's <sys/queue.h>
+    
+    This doesn't affect freebsd6-buildutils.
+
+ include/bsd/queue.h |  414 ++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 files changed, 408 insertions(+), 6 deletions(-)
+
+commit e8d3b08cc6892c5e5a34458852e556830d05ae07
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Fri Feb 10 15:22:58 2006 +0000
+
+    Add __unused
+
+ include/bsd/bsd.h |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+commit 33eb3ecc41af581080a97300f052df2eea4722e7
+Author: Robert Millan <rmh@aybabtu.com>
+Date:   Fri Feb 10 14:59:03 2006 +0000
+
+    Add errc, warnc, verrc and vwarnc
+
+ ChangeLog         |   10 +++++++-
+ Makefile          |    4 +-
+ Versions          |    1 +
+ err.c             |   63 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ include/bsd/err.h |   11 +++++++++
+ 5 files changed, 86 insertions(+), 3 deletions(-)
+
+commit bc2b90c07b5dbf2850698a4336bdd13384a43087
+Author: Aurelien Jarno <aurel32@debian.org>
+Date:   Tue Dec 20 21:05:34 2005 +0000
+
+    Makefile: Fix typo
+
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+commit dedb8169c4df522f1b9fe5e20e7828dd0861bf84
+Author: Aurelien Jarno <aurel32@debian.org>
+Date:   Tue Dec 20 20:29:47 2005 +0000
+
+    Added manpages and fixed fmtcheck
+
+ ChangeLog            |    5 +-
+ Makefile             |    8 +-
+ Versions             |    1 +
+ include/bsd/stdlib.h |    9 ++
+ include/bsd/string.h |    2 +-
+ man/arc4random.3     |  107 ++++++++++++++++++++++++++
+ man/fgetln.3         |  128 +++++++++++++++++++++++++++++++
+ man/fmtcheck.3       |  117 +++++++++++++++++++++++++++++
+ man/strlcpy.3        |  204 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 9 files changed, 575 insertions(+), 6 deletions(-)
+
+commit 91473e2748a0081962a2ecae8ab7787858722efd
+Author: Aurelien Jarno <aurel32@debian.org>
+Date:   Sun Dec 18 04:02:56 2005 +0000
+
+    fmtcheck: New function
+
+ ChangeLog            |    6 +
+ Makefile             |    2 +-
+ Versions             |    1 +
+ fmtcheck.c           |  267 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ include/bsd/string.h |    1 +
+ 5 files changed, 276 insertions(+), 1 deletions(-)
+
+commit 657f1b59ceec215ae13f57d03a5ce39c03d30b21
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Oct 31 22:57:10 2005 +0000
+
+    Reorganize header files
+
+ ChangeLog                          |   14 ++
+ Makefile                           |    2 +-
+ bsd.h                              |  266 ------------------------------------
+ include/bsd/bsd.h                  |  110 +++++++++++++++
+ ip_icmp.h => include/bsd/ip_icmp.h |    0
+ md5.h => include/bsd/md5.h         |    0
+ include/bsd/queue.h                |  151 ++++++++++++++++++++
+ include/bsd/random.h               |    9 ++
+ include/bsd/string.h               |   11 ++
+ md5c.c                             |    2 +-
+ 10 files changed, 297 insertions(+), 268 deletions(-)
+
+commit 5c2938f589ac8de18646566821dce336fa73a707
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Fri Oct 28 19:18:39 2005 +0000
+
+    Fix ChangeLog
+
+ ChangeLog |   11 +++--------
+ 1 files changed, 3 insertions(+), 8 deletions(-)
+
+commit 14b06b3178aeec49947f062d44cf0799c98f831c
+Author: Hector Garcia <hector@debian.org>
+Date:   Fri Aug 5 19:52:06 2005 +0000
+
+    Added long description
+
+ ChangeLog |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+commit a636112284e859557d2acc63c1fb24b2615144ab
+Author: Hector Garcia <hector@debian.org>
+Date:   Wed Aug 3 16:12:59 2005 +0000
+
+    General cleanup
+    
+    Changes on Makefile to fix lack of soft links on shared lib.
+    Changes on md5.h to reflect md5c.c.
+    Fixed few packaging problems.
+
+ ChangeLog |    9 +++++++++
+ Makefile  |    6 ++++--
+ md5.h     |    8 ++++----
+ 3 files changed, 17 insertions(+), 6 deletions(-)
+
+commit 8928a72173c96d637c080f44b8ecc9763fa3ee94
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Jul 25 23:38:43 2005 +0000
+
+    Makefile: Add "md5.h" to LIB_INCLUDES
+
+ ChangeLog |    4 ++++
+ Makefile  |    2 +-
+ 2 files changed, 5 insertions(+), 1 deletions(-)
+
+commit 3bd2ba1a90fbacd1aa52f683f9666dd66841c6ca
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Jul 25 23:37:06 2005 +0000
+
+    Versions: Add MD5Init, MD5Update, MD5Pad and MD5Final to LIBBSD_0.0
+
+ ChangeLog |    5 +++++
+ Versions  |    4 ++++
+ 2 files changed, 9 insertions(+), 0 deletions(-)
+
+commit 88129874541ecd0039f3cbee20e69a4eb8735252
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Jul 25 23:32:52 2005 +0000
+
+    Fix ChangeLog format
+
+ ChangeLog |    9 +++++----
+ 1 files changed, 5 insertions(+), 4 deletions(-)
+
+commit 2154e96175c123584730cf6d2a06e4a20ce737be
+Author: Hector Garcia <hector@debian.org>
+Date:   Mon Jul 25 23:02:40 2005 +0000
+
+    Changed files to compile md5c.c
+
+ ChangeLog |    5 +++++
+ Makefile  |    4 +---
+ md5.h     |   52 ++++++++++++++++++++++++++++++++++++++++++++++++----
+ md5c.c    |    2 +-
+ 4 files changed, 55 insertions(+), 8 deletions(-)
+
+commit b478b9dd03793e329d81e5b930d62f16fd70c750
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Mon Jul 25 00:07:29 2005 +0000
+
+    fgetln: Cleanup function
+    
+    Reindent, remove commented code and translate variable names to english
+
+ ChangeLog |    5 +++++
+ fgetln.c  |   22 +++++++++-------------
+ 2 files changed, 14 insertions(+), 13 deletions(-)
+
+commit aa605d5f8621f8fe2f96cb4f946c5e11dad885b2
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jul 24 23:55:15 2005 +0000
+
+    Add versioned symbols support
+
+ ChangeLog |    5 +++++
+ Makefile  |    5 ++++-
+ Versions  |   10 ++++++++++
+ 3 files changed, 19 insertions(+), 1 deletions(-)
+
+commit 07a58e79ab36e023276d45e4a08f94032d652888
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jul 24 23:35:23 2005 +0000
+
+    General cleanup
+
+ Makefile |   94 ++++++++++++++++++++++++++++++++++++++++---------------------
+ md5c.c   |    2 +-
+ 2 files changed, 62 insertions(+), 34 deletions(-)
+
+commit 400f4cd55da0bf04f5cc1853b8d45734fb530f7c
+Author: Guillem Jover <guillem@hadrons.org>
+Date:   Sun Jul 24 22:55:16 2005 +0000
+
+    Remove autogenerated cruft
+
+ 0 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 8654206a04995cf97273e1338a22c05d9a542cad
+Author: Hector Garcia <hector@debian.org>
+Date:   Sun Jul 24 22:51:34 2005 +0000
+
+    Importing libbsd
+
+ Makefile        |   34 ++++++
+ arc4random.c    |  191 +++++++++++++++++++++++++++++++
+ bsd.h           |  266 +++++++++++++++++++++++++++++++++++++++++++
+ fgetln.c        |   32 +++++
+ inet_net_pton.c |  214 +++++++++++++++++++++++++++++++++++
+ ip_icmp.h       |  203 +++++++++++++++++++++++++++++++++
+ md5.copyright   |   21 ++++
+ md5.h           |    4 +
+ md5c.c          |  336 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ strlcat.c       |   74 ++++++++++++
+ strlcpy.c       |   69 +++++++++++
+ 11 files changed, 1444 insertions(+), 0 deletions(-)

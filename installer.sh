@@ -50,6 +50,11 @@ echo "Installing..."
 # Build the image.
 ./docker-build.sh > /dev/null 2>&1
 
+docker build -t libbsd libbsd-context
+docker create --name tmp-libbsd libbsd
+docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 ${INSTALL_DIR}/libbsd.so.0
+docker rm tmp-libbsd
+
 # After docker is installed, must copy the 3 folders into system.
 # docker-build already handles liflg_pak2.pak and demo_pak0.pak @ ~/.loki/sof-addons/base/*
 # and folders are ensured to exist. ~/.loki/sof ~/.loki/sof-addons/base
