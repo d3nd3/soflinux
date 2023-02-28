@@ -10,12 +10,12 @@
 USE_PRIV=""
 
 # ensure directory exists
-. $(dirname "${BASH_SOURCE[0]}")/ensure_dirs.sh
+. $(dirname "${BASH_SOURCE[0]}")/ensure-dirs.sh
 
 if [ ! -f ~/.loki/sof/default_video.cfg ]; then
   echo "Copying default_video.cfg fix into user dir..."
-  cp ctx/default_video.cfg ~/.loki/sof/
-  cp ctx/won_key ~/.loki/sof/
+  cp docker-context/default_video.cfg ~/.loki/sof/
+  cp docker-context/won_key ~/.loki/sof/
 fi
 
 

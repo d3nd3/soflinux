@@ -34,20 +34,32 @@
 # get all resources into one directory
 #---------------------------------------------
 FROM i386/ubuntu:bionic AS sofBuilder
+ARG MANUAL_CE=""
 #echo "deb [trusted=yes] http://ppa.launchpad.net/deadsnakes/ppa ubuntu bionic main" >> /etc/apt/sources.list
-RUN apt -y update && apt install -y git python3 python3-pip && pip3 install requests
+RUN apt-get -y update && \
+apt-get install -y git xxd wine-stable xvfb \
+&& rm -rf /var/lib/apt/lists/*
+
 # ------------------SOF1.06a----------------
-# Get 1.06a , rename pak2.pak -> pak6.pak, extracts to '/sof'
-RUN echo "Please Standby, we are grabbing SoF Community Edition, its around 600MB, this could take a while."
+# Get 1.06a , rename pak2.pak -> pak6.pak, 1.06 extracts to '/sof'
+
 RUN mkdir /sof && \
 	git clone https://github.com/liflg/sof_1.06a-english_x86 && \
 	tar -xvf sof_1.06a-english_x86/data/patch-1.06a.tar -C /sof && \
-	mv /sof/base/pak2.pak /sof/base/liflg_pak2.pak && \
-	git clone https://github.com/d3nd3/sof-ce-dl && \
-	python3 sof-ce-dl/get.py
+	mv /sof/base/pak2.pak /sof/base/liflg_pak2.pak
+
+# automatic CE
+RUN if [ -z ${MANUAL_CE} ]; then \
+	apt-get -y update && apt-get -y install python3 python3-pip && pip3 install requests && rm -rf /var/list/apt/lists/*; \
+	echo "\nPlease Standby, we are grabbing SoF Community Edition, its around 600MB, this could take a while.\n"; \
+	git clone https://github.com/d3nd3/sof-ce-dl; \
+	python3 sof-ce-dl/get.py; \
+	fi
+# MANUAL_CE not empty, thus we copy it from context
+COPY ${MANUAL_CE:+.} /
+
 # -------------SOF-COMMUNITYEDITION------------
 # Extract SoF-CE, uses wine and xvfb to do so, extracts to '/sof-ce'
-RUN apt -y install wine-stable xvfb
 #RUN Xvfb :0 -nolisten tcp &
 RUN xvfb-run wine sof_ce_installer.exe /s /l=English /p=./sof-ce
 
@@ -61,8 +73,7 @@ RUN xvfb-run wine sof_ce_installer.exe /s /l=English /p=./sof-ce
 # why pak5.pak and pak6.pak demo and 1.06a? too much priority?
 #apply v1.07 compat patch
 COPY sof_demo.tar.gz /
-RUN apt-get -y install xxd && \
-tar -xvzf /sof_demo.tar.gz && \
+RUN tar -xvzf /sof_demo.tar.gz && \
 cp /sof_demo/base/pak0.pak /sof/base/demo_pak0.pak
 
 #------------------SOF-MP/SOF-MP-SERVER-----------------
@@ -77,7 +88,7 @@ COPY libXdmcp.so.6 .
 # Final Image to Run SoF with.
 #---------------------------------------
 FROM i386/ubuntu:bionic
-
+ARG RUN_DOCKER_CLIENT=""
 SHELL ["/bin/bash" , "-c"]
 
 # Dependencies
@@ -120,13 +131,14 @@ COPY --from=sofBuilder --chown=mullins /sof/sof-bin /sof/sof-mp /sof/sof-mp-serv
 # /home/mullins/sof
 WORKDIR sof
 
-USER root
-RUN apt-get -y update && apt-get -y install gdb
-RUN apt-get -y install mesa-utils
-
-# Necessary for WSL users and gives us padsp for NON-WSL users
-RUN apt-get -y install osspd
 #RUN setcap cap_net_raw,cap_net_admin+eip /home/mullins/sof/sof-bin
+USER root
+RUN if [ ! -z "${RUN_DOCKER_CLIENT}" ]; then \
+      echo "\nInstalling mesa && pulseaudio because you will use the container as client.\n"; \
+      # OSSPD Necessary for WSL users and gives us padsp for NON-WSL users
+      apt-get -y update && apt-get -y install gdb mesa-utils osspd && \
+      rm -rf /var/lib/apt/lists/*; \
+    fi
 
 # prepare to launch
 USER mullins

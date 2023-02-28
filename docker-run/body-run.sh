@@ -49,6 +49,7 @@ if [ -z "$WSL_ENVIRONMENT" ]; then
   else
     echo "Warning: /dev/dsp not found, osspd installed?"
   fi
+  # pulseaudio shouldn't be needed to run in container, if mounted /dev/dsp.
   DISABLE_PULSE="systemctl --user stop pulseaudio.socket > /dev/null 2>&1;systemctl --user stop pulseaudio.service > /dev/null 2>&1;"'kill -9 $(pidof pulseaudio) > /dev/null 2>&1;'
 fi
 

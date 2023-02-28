@@ -4,29 +4,31 @@
 # files downloaded from remote sof servers whilst inside the game are saved in the ~/.loki/sof directory.
 # this is traditionally known as USER dir in sof windows.
 
-if [ ! -d "ctx" ];then
+if [ ! -d "docker-context" ];then
   echo "Run this script from the soflinux folder"
   exit 1
 fi
 
-# Ensuse directories exist.
-. run/ensure_dirs.sh
+# --build-arg RUN_DOCKER_CLIENT=1
+# --build-arg MANUAL_CE=1
+docker build -t sof-linux docker-context $@
 
-CONTAINER_ID=$(docker build -t sof-linux ctx 2>&1 | tee /dev/tty | grep -oP '(?<=Successfully built )\w+' | tail -1)
-
-if docker inspect "$CONTAINER_ID" >/dev/null 2>&1; then
+# Check exit status of docker build command
+if [ $? -eq 0 ]; then
   echo "STANDBY: Copying demo and 1.06a pak to ~/.loki/sof-addons/ ..."
 
+  # Ensuse directories exist.
+  . docker-run/ensure-dirs.sh
+
   docker create --name temp-sof-linux sof-linux > /dev/null 2>&1
+  # extract these 2 pak files from the install because its bind mounted
   docker cp temp-sof-linux:/home/mullins/.loki/sof-addons/base/liflg_pak2.pak ~/.loki/sof-addons/base/
   docker cp temp-sof-linux:/home/mullins/.loki/sof-addons/base/demo_pak0.pak ~/.loki/sof-addons/base/
   docker rm temp-sof-linux > /dev/null 2>&1
 
-  cp ctx/won_key ~/.loki/sof/
-  cp ctx/default_video.cfg ~/.loki/sof/
+  cp docker-context/won_key ~/.loki/sof/
+  cp docker-context/default_video.cfg ~/.loki/sof/
 
   echo "Image built - consider pruning your images to save disk-space."
-else
-  echo "ERROR: Container not found."
 fi
 

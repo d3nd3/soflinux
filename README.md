@@ -21,35 +21,12 @@ It could be useful to run a sof server inside a docker container though.  Becaus
 For the client-side game, I will use docker only as an installer.  If the user wants to run the game inside a docker container, so be it.  Its down to them to fix the hardware accelerated alignment problem.
 
 
+## Usage
 
+### Build Options
+`--build-arg RUN_DOCKER_CLIENT=1` - if you intend to run the client through docker container.  
+`--build-arg MANUAL_CE=1` - if you want to supply the Community Edition installer from sof1.org.  
 
-
-## For audio to work
+### Host requirements
 `sudo apt install osspd`  
-This is required for audio to function.
-## Choose to build image or download image pre-built
-### Prebuilt
-TODO:not sure how to do this yet!  
-Verified.!
-### Build yourself 
-Depending if your pi is member of docker group, you will have to use sudo  
-`cd soflinux`  
-`sudo bash build`  
-## Run
-**Do not use sudo on the run script even if you are not docker grouped, the script will handle this for you.**  
-NOTE: Any extra commands passed in to ./run will be forwarded to the game executable.  
-eg. `./run +set name MVP`  
-will launch with player name set to MVP.  
-### Multiplayer
-`cd soflinux`  
-`chmod +x run-multiplayer`  
-`./run-multiplayer +connect ip_of_server:port`
-#### Multiplayer ip server list
-[https://sof1.megalag.org/server/sof](https://sof1.megalag.org/server/sof)
-## Folders
-`@outsideContainer $HOME/.loki/sof` - user dir where game savefiles and in-game downloaded content are stored. This folder is mounted into the docker container when it is ran.  
-`@outsideContainer $HOME/.loki/sof-base` - .pak files are loaded from this directory, also monted into the container at run-time. Its also the folder that an **autoexec.cfg** is searched.  
-`@insideContainer /home/mullins/sof/static_files` - game pak files, pak0,pak1,pak2 etc.  
-
-## TroubleShooting
-If you use proprietry gpu drivers, you might want to edit the Dockerfile to install the priorietry glx drivers.  If you're gpu doesn't function with the mesa drivers in the default repo of `bionic`, you may want to try upgrading the drivers there, using a fresh mesa ppa (also by appending to the Dockerfile).
+SoF uses /dev/dsp (oss) as its sound support.  This is very old and only supported if we use a wrapper program `osspd`.  It installs as a service.  But not necessary as `padsp <yourProg>` is sufficient.
