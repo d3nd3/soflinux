@@ -2,6 +2,15 @@
 
 USER_DIR=~/.loki/sof
 INSTALL_DIR=~/.loki/sof-runtime
+VERBOSE=""
+for arg in "$@"; do
+  if [[ "$arg" == "-v" ]]; then
+    echo "Verbose: True"
+    VERBOSE=1
+    break
+  fi
+done
+
 case ${1} in
   --dir)
     echo "--dir"
@@ -36,7 +45,7 @@ case ${1} in
       read -n 1 confirm
       echo
       if [ "$confirm" = "y" ]; then
-        echo "Proceeding..."
+        echo "Ok."
       else
           echo "You did not confirm. Exiting..."
           exit 1
@@ -46,9 +55,14 @@ esac
 
 mkdir -p ${INSTALL_DIR}/static_files/base
 
-echo "Installing..."
+echo "Performing Docker Build..."
+
 # Build the image.
-./docker-build.sh > /dev/null 2>&1
+if [ -z ${VERBOSE} ]; then
+  ./docker-build.sh > /dev/null 2>&1
+else
+  ./docker-build.sh
+fi
 
 docker build -t libbsd libbsd-context
 docker create --name tmp-libbsd libbsd
@@ -59,6 +73,7 @@ docker rm tmp-libbsd
 # docker-build already handles liflg_pak2.pak and demo_pak0.pak @ ~/.loki/sof-addons/base/*
 # and folders are ensured to exist. ~/.loki/sof ~/.loki/sof-addons/base
 
+echo "Installing..."
 docker create --name temp-sof-linux sof-linux > /dev/null 2>&1
 
 for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
