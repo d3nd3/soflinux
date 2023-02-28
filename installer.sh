@@ -60,14 +60,24 @@ echo "Performing Docker Build..."
 # Build the image.
 if [ -z ${VERBOSE} ]; then
   ./docker-build.sh > /dev/null 2>&1
+
+  echo "Building compatibile libbsd library..."
+  docker build -t libbsd libbsd-context > /dev/null 2>&1
+  docker create --name tmp-libbsd libbsd > /dev/null 2>&1
+  docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 ${INSTALL_DIR}/libbsd.so.0
+  docker rm tmp-libbsd > /dev/null 2>&1
 else
   ./docker-build.sh
+
+  echo "Building comptabile libbsd library..."
+  docker build -t libbsd libbsd-context
+  docker create --name tmp-libbsd libbsd
+  docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 ${INSTALL_DIR}/libbsd.so.0
+  docker rm tmp-libbsd
 fi
 
-docker build -t libbsd libbsd-context
-docker create --name tmp-libbsd libbsd
-docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 ${INSTALL_DIR}/libbsd.so.0
-docker rm tmp-libbsd
+
+
 
 # After docker is installed, must copy the 3 folders into system.
 # docker-build already handles liflg_pak2.pak and demo_pak0.pak @ ~/.loki/sof-addons/base/*
