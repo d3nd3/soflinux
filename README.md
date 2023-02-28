@@ -30,3 +30,6 @@ For the client-side game, I will use docker only as an installer.  If the user w
 ### Host requirements
 `sudo apt install osspd`  
 SoF uses /dev/dsp (oss) as its sound support.  This is very old and only supported if we use a wrapper program `osspd`.  It installs as a service.  But not necessary as `padsp <yourProg>` is sufficient.
+
+## Credits
+Me
