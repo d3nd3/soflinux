@@ -33,8 +33,9 @@ case ${1} in
     ;;
   --help|-h)
     echo "Usage: installer.sh [OPTION]"
-    echo "--dir <installdir]"
-    echo "--help/-h"
+    echo "--help/-h = Help"
+    echo "--dir <installdir> - Where to install sof binaries. default:~/.loki/sof-runtime"
+    echo "--v/-v = Verbose Mode - default: silent"
     exit 0
     ;;
   *)
