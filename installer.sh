@@ -116,6 +116,11 @@ echo
 echo "to launch sof multi player 1.07f - run ~/.loki/sof-runtime/start_multiplayer.sh"
 echo 
 echo "to launch a dedicated sof server 1.07f - run ~/.loki/sof-runtime/start_server.sh"
+echo
+echo "recommended aliases to put into ~/.bash_aliases"
+echo 'alias sof-sp="~/.loki/sof-runtime/start_singleplayer.sh"
+alias sof-mp="~/.loki/sof-runtime/start_multiplayer.sh"
+alias sof-mp-s="~/.loki/sof-runtime/start_server.sh"'
 
 
 
