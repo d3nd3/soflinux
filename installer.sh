@@ -3,11 +3,15 @@
 USER_DIR=~/.loki/sof
 INSTALL_DIR=~/.loki/sof-runtime
 VERBOSE=""
+
 for arg in "$@"; do
   if [[ "$arg" == "-v" ]]; then
     echo "Verbose: True"
     VERBOSE=1
     break
+  fi
+  if [[ "$arg" == '--build-arg'* ]]; then
+    BUILD_ARGS="${BUILD_ARGS} ${arg}"
   fi
 done
 
@@ -60,7 +64,7 @@ echo "Performing Docker Build..."
 
 # Build the image.
 if [ -z ${VERBOSE} ]; then
-  ./docker-build.sh > /dev/null 2>&1
+  ./docker-build.sh ${BUILD_ARGS}  > /dev/null 2>&1
 
   echo "Building compatibile libbsd library..."
   docker build -t libbsd libbsd-context > /dev/null 2>&1
@@ -68,7 +72,7 @@ if [ -z ${VERBOSE} ]; then
   docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 ${INSTALL_DIR}/libbsd.so.0
   docker rm tmp-libbsd > /dev/null 2>&1
 else
-  ./docker-build.sh
+  ./docker-build.sh ${BUILD_ARGS}
 
   echo "Building comptabile libbsd library..."
   docker build -t libbsd libbsd-context
