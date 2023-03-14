@@ -56,7 +56,8 @@ RUN if [ -z ${MANUAL_CE} ]; then \
 	python3 sof-ce-dl/get.py; \
 	fi
 # MANUAL_CE not empty, thus we copy it from context
-COPY ${MANUAL_CE:+.} /
+# If MANUAL_CE is set, it expands to become `.`
+COPY ${MANUAL_CE:+sof_ce_installer.exe} /
 
 # -------------SOF-COMMUNITYEDITION------------
 # Extract SoF-CE, uses wine and xvfb to do so, extracts to '/sof-ce'
