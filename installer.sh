@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Attempts to build the docker container and extract the files to your local system.
 USER_DIR=~/.loki/sof
 INSTALL_DIR=~/.loki/sof-runtime
 VERBOSE=""
@@ -78,8 +78,6 @@ else
 fi
 
 
-
-
 # After docker is installed, must copy the 3 folders into system.
 # docker-build already handles liflg_pak2.pak and demo_pak0.pak @ ~/.loki/sof-addons/base/*
 # and folders are ensured to exist. ~/.loki/sof ~/.loki/sof-addons/base
@@ -99,6 +97,10 @@ done
 
 docker rm temp-sof-linux > /dev/null 2>&1
 
+# Run scripts
+cp docker-context/start_multiplayer.sh docker-context/start_server.sh docker-context/start_singleplayer.sh ${INSTALL_DIR}
+chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh
+
 echo "Installed."
 echo
 echo "soflinux is installed to ${INSTALL_DIR}"
@@ -108,6 +110,12 @@ echo
 echo "user dir is ${USER_DIR} - content downloaded from in-game are saved here"
 echo
 echo "addons dir is "${USER_DIR}-addons/base" - place extra resources here"
+echo
+echo "to launch sof single player - run ~/.loki/sof-runtime/start_singleplayer.sh"
+echo 
+echo "to launch sof multi player 1.07f - run ~/.loki/sof-runtime/start_multiplayer.sh"
+echo 
+echo "to launch a dedicated sof server 1.07f - run ~/.loki/sof-runtime/start_server.sh"
 
 
 

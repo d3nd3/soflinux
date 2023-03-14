@@ -22,7 +22,7 @@ For the client-side game, I will use docker only as an installer.  If the user w
 
 
 ## Usage
-
+There is a file named **installer.sh**.  It will use docker to get all of the files into a container, then copy them over to your local system.
 ### Build Options
 `--build-arg RUN_DOCKER_CLIENT=1` - if you intend to run the client through docker container.  
 `--build-arg MANUAL_CE=1` - if you want to supply the Community Edition installer from sof1.org.  
