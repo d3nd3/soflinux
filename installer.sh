@@ -105,6 +105,7 @@ docker rm temp-sof-linux > /dev/null 2>&1
 cp docker-context/start_multiplayer.sh docker-context/start_server.sh docker-context/start_singleplayer.sh ${INSTALL_DIR}
 chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh
 
+
 echo "Installed."
 echo
 echo "soflinux is installed to ${INSTALL_DIR}"

@@ -16,10 +16,19 @@ If you intend to run the executables in a containerized state, through docker.  
 If you want to supply the Community Edition installer from sof1.org, instead of let the script download it.  
 You have to put the sof_ce_installer.exe into the docker-context folder.  And it has to be named that exactly : `sof_ce_installer.exe`.
 
-### Host requirements
-`sudo apt install osspd`  
-SoF uses /dev/dsp (oss) as its sound support.  This is very old and only supported if we use a wrapper program `osspd`.  It installs as a service, but not necessary as `padsp <yourProg>` is sufficient.
 
+#### Running the game within docker
+If you do decide you want this option, its worse because its harder to get hardware-acceleration up and running.  However, keep in mind that it still mounts 2 folders from local machine, so you can easily retain files downloaded from within game and add to them externally.  
+1. .loki/sof-addons/base [$BASEDIR/base]     - used for extending game pak files, this has higher priority than the internal game directory.
+2. .loki/sof [$USER] - used for saving files that are downloaded from other servers, this has higher priority than both.
+
+### Host requirements
+#### osspd
+`sudo apt install osspd`  
+SoF uses /dev/dsp (oss) as its sound support.  This is very old and only supported if we use a wrapper program `osspd`.  It installs as a service, but not necessary as `padsp <yourProg>` is sufficient.  
+#### libsdl1.2-compat
+`sudo apt install libsdl1.2-compat`  
+This will allow you to alt tab.  The launcher scripts LD_PRELOAD the newer version. (But still depend on original, I believe, thats why both are LD_PRELOADED).
 
 ## What sets the linux version apart from the windows one?
 The windows community runs **1.07f**. Since the multiplayer is one of the most-loved aspects of the game, its sad that the **1.06a** linux version cannot play alongside windows players, who are using almost identical network protocols.  This project attempts to allow the different versions to play alongside each other.

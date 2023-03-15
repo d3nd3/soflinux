@@ -129,6 +129,7 @@ COPY --from=sofBuilder --chown=mullins /sof/base/demo_pak0.pak /home/mullins/.lo
 COPY --from=sofBuilder --chown=mullins /sof/*.so* ./sof/
 COPY --from=sofBuilder --chown=mullins /sof/sof-bin /sof/sof-mp /sof/sof-mp-server ./sof/
 
+
 # /home/mullins/sof
 WORKDIR sof
 

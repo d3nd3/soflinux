@@ -29,6 +29,10 @@ if [ $? -eq 0 ]; then
   cp docker-context/won_key ~/.loki/sof/
   cp docker-context/default_video.cfg ~/.loki/sof/
 
+  # fix default drivers search not including libGL.so.1
+  mkdir -p ${USER_DIR}/drivers
+  echo -e "opengl\nopengl32\n3dfxvgl\n3dfxogl\nlibGL.so.1" > ~/.loki/sof/drivers/drivers.txt
+  
   echo "Image built - consider pruning your images to save disk-space."
 fi
 
