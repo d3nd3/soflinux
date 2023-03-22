@@ -119,6 +119,9 @@ RUN mkdir -p /home/mullins/.loki/sof
 # copy sof from the previous builder image
 COPY --from=sofBuilder --chown=mullins /sof-ce/Base/basicpack2015v2.pak ./sof/static_files/base/
 COPY --from=sofBuilder --chown=mullins /sof-ce/Base/pak*.pak ./sof/static_files/base/
+COPY --from=sofBuilder --chown=mullins /sof-ce/Base/gs.pak ./sof/static_files/base/
+
+# player and gamex86
 COPY --from=sofBuilder --chown=mullins /sof/base/player.so /sof/base/gamex86.so ./sof/static_files/base/
 
 

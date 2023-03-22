@@ -49,5 +49,11 @@ It could be useful to run a sof server inside a docker container though.  Becaus
 For the client-side game, I will use docker only as an installer.  If the user wants to run the game inside a docker container, so be it.  Its down to them to fix the hardware accelerated alignment problem.
 
 
+
+### My Sound Is Not Working What Can I Do?
+`sudo systemctl restart osspd`
+`systemctl status osspd`
+Especially under wsl this helps.
+
 ## Credits
 Me..
