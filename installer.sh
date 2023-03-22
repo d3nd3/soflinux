@@ -94,7 +94,7 @@ do
   docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/
 done
 
-for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak
+for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 do
   docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/
 done
