@@ -13,6 +13,12 @@ echo "21" | xxd -r -p -seek 0x7ce4b - sof-mp
 # 80C9AB0
 echo "21" | xxd -r -p -seek 0x81ab0 - sof-mp
 
+# ---------------------MORE 33--------------------
+# 080C94B7 - 814B7
+echo "21" | xxd -r -p -seek 0x814B7 - sof-mp
+# 80C4FD4 - 7CFD4
+echo "21" | xxd -r -p -seek 0x7CFD4 - sof-mp
+
 # CL_ConnectionlessPacket - disable cert authentication - don't act upon 3rd Argument.
 # 80C62CC
 echo "90909090909090bf05000000" | xxd -r -p -seek 0x7e2cc - sof-mp
