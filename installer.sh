@@ -72,7 +72,7 @@ if [ ${SILENT} -eq 1 ]; then
 	echo "Building compatible libbsd library..."
 
 	docker build -t libbsd libbsd-context > /dev/null 2>&1
-	iif ! [ $? -eq 0 ]; then
+	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	endif
@@ -110,14 +110,14 @@ echo "Installing..."
 if [ ${SILENT} -eq 0 ]; then
 	# default not silent
 	docker create --name temp-sof-linux sof-linux
-	iif ! [ $? -eq 0 ]; then
+	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	endif
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/\
-		iif ! [ $? -eq 0 ]; then
+		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
 		endif
@@ -125,13 +125,13 @@ if [ ${SILENT} -eq 0 ]; then
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/
-		iif ! [ $? -eq 0 ]; then
+		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
 		endif
 	done
 	docker rm temp-sof-linux
-	iif ! [ $? -eq 0 ]; then
+	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	endif
@@ -141,14 +141,14 @@ if [ ${SILENT} -eq 0 ]; then
 elif [ ${SILENT} -eq 1 ]; then
 	# silent
 	docker create --name temp-sof-linux sof-linux > /dev/null 2>&1
-	iif ! [ $? -eq 0 ]; then
+	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	endif
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/ > /dev/null 2>&1
-		iif ! [ $? -eq 0 ]; then
+		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
 		endif
@@ -156,13 +156,13 @@ elif [ ${SILENT} -eq 1 ]; then
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/ > /dev/null 2>&1
-		iif ! [ $? -eq 0 ]; then
+		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
 		endif
 	done
 	docker rm temp-sof-linux > /dev/null 2>&1
-	iif ! [ $? -eq 0 ]; then
+	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	endif
