@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 # set default values for directories
 USER_DIR=${HOME}/.loki/sof
@@ -53,8 +53,8 @@ case "$1" in
 	if [[ "$confirm" = [yY] ]]; then
 	  echo "Ok."
 	else
-	  echo "You did not confirm. Exiting..."
-	  exit 1
+		echo "You did not confirm. Exiting..."
+		exit 1
 	fi
 	;;
 esac
@@ -65,30 +65,43 @@ mkdir -p "${INSTALL_DIR}/static_files/base"
 echo "Performing Docker Build..."
 
 # Build the image and copy required files to local system
-if (( SILENT )); then
-  ./docker-build.sh ${BUILD_ARGS} > /dev/null 2>&1
-  echo "Building compatible libbsd library..."
-  docker build -t libbsd libbsd-context > /dev/null 2>&1
-  docker create --name tmp-libbsd libbsd > /dev/null 2>&1
-  docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0" > /dev/null 2>&1
-  docker rm tmp-libbsd > /dev/null 2>&1
-else
-  ./docker-build.sh ${BUILD_ARGS}
-  echo "Building compatible libbsd library..."
-  docker build -t libbsd libbsd-context
-  docker create --name tmp-libbsd libbsd
-  docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0"
-  docker rm tmp-libbsd
+if [ ${SILENT} -eq 1 ]; then
+
+	./docker-build.sh ${BUILD_ARGS} > /dev/null 2>&1
+
+	echo "Building compatible libbsd library..."
+
+	docker build -t libbsd libbsd-context > /dev/null 2>&1
+	if ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
+
+	docker create --name tmp-libbsd libbsd > /dev/null 2>&1
+	f ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
+
+	docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0" > /dev/null 2>&1
+	f ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
+
+	docker rm tmp-libbsd > /dev/null 2>&1
+	f ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
+elif [ ${SILENT} -eq 0 ]
+	./docker-build.sh ${BUILD_ARGS}
+	echo "Building compatible libbsd library..."
+	docker build -t libbsd libbsd-context
+	docker create --name tmp-libbsd libbsd
+	docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0"
+	docker rm tmp-libbsd
 fi
-
-echo "Installing..."
-
-# copy files to the install directory
-docker create --name temp-sof-linux sof-linux
-for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server; do
-  docker cp "temp-sof-linux:/home/mullins/sof/${FILE}" "${INSTALL_DIR}/"
-done
-for FILE in basicpack2015v2
 
 echo "Installing..."
 # After docker is installed, must copy the 3 folders into system.
@@ -97,30 +110,62 @@ echo "Installing..."
 if [ ${SILENT} -eq 0 ]; then
 	# default not silent
 	docker create --name temp-sof-linux sof-linux
+	if ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
-	  docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/
+		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/\
+		if ! [ $? -eq 0 ]; then
+			echo "failed build"
+			exit 1
+		endif
 	done
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
-	  docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/
+		docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/
+		if ! [ $? -eq 0 ]; then
+			echo "failed build"
+			exit 1
+		endif
 	done
-	docker rm temp-sof-linux;
+	docker rm temp-sof-linux
+	if ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
 	# Run scripts
 	cp docker-context/start_multiplayer.sh docker-context/start_server.sh docker-context/start_singleplayer.sh ${INSTALL_DIR}
 	chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh
 elif [ ${SILENT} -eq 1 ]; then
 	# silent
 	docker create --name temp-sof-linux sof-linux > /dev/null 2>&1
+	if ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
-	  docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/ > /dev/null 2>&1
+		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/ > /dev/null 2>&1
+		if ! [ $? -eq 0 ]; then
+			echo "failed build"
+			exit 1
+		endif
 	done
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
-	  docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/ > /dev/null 2>&1
+		docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/ > /dev/null 2>&1
+		if ! [ $? -eq 0 ]; then
+			echo "failed build"
+			exit 1
+		endif
 	done
 	docker rm temp-sof-linux > /dev/null 2>&1
+	if ! [ $? -eq 0 ]; then
+		echo "failed build"
+		exit 1
+	endif
 	# Run scripts
 	cp docker-context/start_multiplayer.sh docker-context/start_server.sh docker-context/start_singleplayer.sh ${INSTALL_DIR} > /dev/null 2>&1
 	chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh > /dev/null 2>&1

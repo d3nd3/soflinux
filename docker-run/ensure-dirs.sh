@@ -1,3 +1,4 @@
+#!/bin/bash
 DIR_BASEDIR=~/.loki/sof-addons/base
 DIR_USER=~/.loki/sof
 
