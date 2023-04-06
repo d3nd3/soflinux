@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # ~/.loki/sof-addons/ is used to allow user to control autoexec.cfg and extra .pak files
 # files downloaded from remote sof servers whilst inside the game are saved in the ~/.loki/sof directory.

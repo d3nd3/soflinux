@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 INSTALL_DIR=~/.loki/sof-runtime
 
 docker build -t libsdl libsdlcompat-context
