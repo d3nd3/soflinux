@@ -116,7 +116,7 @@ if [ ${SILENT} -eq 0 ]; then
 	fi
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
-		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/\
+		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
