@@ -2,7 +2,7 @@
 # Attempts to build the docker container and extract the files to your local system.
 USER_DIR=~/.loki/sof
 INSTALL_DIR=~/.loki/sof-runtime
-SILENT=""
+SILENT=0
 
 for arg in "$@"; do
   if [[ "$arg" == "-s" ]]; then
@@ -62,14 +62,14 @@ mkdir -p ${INSTALL_DIR}/static_files/base
 echo "Performing Docker Build..."
 
 # Build the image.
-if [ -z ${SILENT} ]; then
+if [ ${SILENT} -eq 1  ]; then
 	./docker-build.sh ${BUILD_ARGS}  > /dev/null 2>&1
 	echo "Building compatibile libbsd library..."
 	docker build -t libbsd libbsd-context > /dev/null 2>&1
 	docker create --name tmp-libbsd libbsd > /dev/null 2>&1
 	docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0" > /dev/null 2>&1
 	docker rm tmp-libbsd > /dev/null 2>&1
-else
+elif [ ${SILENT} -eq 0 ]; then
 	# notSilent - default
 	./docker-build.sh ${BUILD_ARGS}
 	echo "Building compatibile libbsd library..."
@@ -82,7 +82,7 @@ fi
 # After docker is installed, must copy the 3 folders into system.
 # docker-build already handles liflg_pak2.pak and demo_pak0.pak @ ~/.loki/sof-addons/base/*
 # and folders are ensured to exist. ~/.loki/sof ~/.loki/sof-addons/base
-if [ -z ${SILENT} ]; then
+if [ ${SILENT} -eq 0 ]; then
 	# default not silent
 	echo "Installing..."
 	docker create --name temp-sof-linux sof-linux
@@ -98,7 +98,7 @@ if [ -z ${SILENT} ]; then
 	# Run scripts
 	cp docker-context/start_multiplayer.sh docker-context/start_server.sh docker-context/start_singleplayer.sh ${INSTALL_DIR}
 	chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh
-else
+elif [ ${SILENT} -eq 1 ]; then
 	# silent
 	echo "Installing..."
 	docker create --name temp-sof-linux sof-linux > /dev/null 2>&1
