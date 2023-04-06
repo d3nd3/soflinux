@@ -15,7 +15,7 @@ docker build -t sof-linux docker-context $@
 if ! [ $? -eq 0 ]; then
 	echo "failed build"
 	exit 1
-endif
+fi
 # Check exit status of docker build command
 
 echo "STANDBY: Copying demo and 1.06a pak to ~/.loki/sof-addons/ ..."
