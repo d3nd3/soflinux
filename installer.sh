@@ -94,7 +94,7 @@ if [ ${SILENT} -eq 1 ]; then
 		echo "failed build"
 		exit 1
 	endif
-elif [ ${SILENT} -eq 0 ]
+elif [ ${SILENT} -eq 0 ]; then
 	./docker-build.sh ${BUILD_ARGS}
 	echo "Building compatible libbsd library..."
 	docker build -t libbsd libbsd-context
