@@ -75,25 +75,25 @@ if [ ${SILENT} -eq 1 ]; then
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 
 	docker create --name tmp-libbsd libbsd > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 
 	docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0" > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 
 	docker rm tmp-libbsd > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 elif [ ${SILENT} -eq 0 ]; then
 	./docker-build.sh ${BUILD_ARGS}
 	echo "Building compatible libbsd library..."
@@ -113,14 +113,14 @@ if [ ${SILENT} -eq 0 ]; then
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/\
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
-		endif
+		fi
 	done
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
@@ -128,13 +128,13 @@ if [ ${SILENT} -eq 0 ]; then
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
-		endif
+		fi
 	done
 	docker rm temp-sof-linux
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 	# Run scripts
 	cp docker-context/start_multiplayer.sh docker-context/start_server.sh docker-context/start_singleplayer.sh ${INSTALL_DIR}
 	chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh
@@ -144,14 +144,14 @@ elif [ ${SILENT} -eq 1 ]; then
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/ > /dev/null 2>&1
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
-		endif
+		fi
 	done
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
@@ -159,13 +159,13 @@ elif [ ${SILENT} -eq 1 ]; then
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
-		endif
+		fi
 	done
 	docker rm temp-sof-linux > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
-	endif
+	fi
 	# Run scripts
 	cp docker-context/start_multiplayer.sh docker-context/start_server.sh docker-context/start_singleplayer.sh ${INSTALL_DIR} > /dev/null 2>&1
 	chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh > /dev/null 2>&1
