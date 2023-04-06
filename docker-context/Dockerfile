@@ -40,7 +40,8 @@ RUN apt-get -y update && \
 apt-get install -y git xxd wine-stable xvfb \
 && rm -rf /var/lib/apt/lists/*
 
-RUN git config --global http.postBuffer 1048576000
+RUN git config --global http.postBuffer 500M && git config --global http.maxRequestBuffer 100M && git config --global core.compression 0
+
 
 # ------------------SOF1.06a----------------
 # Get 1.06a , rename pak2.pak -> pak6.pak, 1.06 extracts to '/sof'
