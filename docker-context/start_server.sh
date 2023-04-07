@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 LAUNCH_OPTS="\
 +set dedicated 1 \
-+set basedir /home/mullins/.loki/sof-addons \
++set basedir $HOME/.loki/sof-addons \
 +set cddir static_files \
 +set console 1 \
 +set version 1.07fX86F \
