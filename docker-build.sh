@@ -18,6 +18,7 @@ if ! [ $? -eq 0 ]; then
 fi
 # Check exit status of docker build command
 
+# This is valid for both docker and non-docker builds because the directories are shared/mounted.
 echo "STANDBY: Copying demo and 1.06a pak to ~/.loki/sof-addons/ ..."
 
 # Ensuse directories exist.
@@ -33,7 +34,7 @@ cp docker-context/won_key ~/.loki/sof/
 cp docker-context/default_video.cfg ~/.loki/sof/
 
 # fix default drivers search not including libGL.so.1
-mkdir -p ${USER_DIR}/drivers
+mkdir -p ${DIR_USER}/drivers
 echo -e "opengl\nopengl32\n3dfxvgl\n3dfxogl\nlibGL.so.1" > ~/.loki/sof/drivers/drivers.txt
 
 echo "Image built - consider pruning your images to save disk-space."
