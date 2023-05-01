@@ -12,18 +12,9 @@ echo "21" | xxd -r -p -seek 0x623de - sof-mp-server
 # 80A99D7
 echo "21" | xxd -r -p -seek 0x619d7 - sof-mp-server
 
-
 # SV_New_f Protocol changed from `32` to `33`
 # 80B031A
 echo "21" | xxd -r -p -seek 0x6831a - sof-mp-server
-
-# correct argv pointer - SVC_DirectConnect adjusts the 6th parameter to be the same as the 5th
-# 80AA49D
-echo "05" | xxd -r -p -seek 0x6249d - sof-mp-server
-
-# correct argv pointer - SVC_DirectConnect adjusts the 5th parameter to be the same as the 4th
-# 80AA46C
-echo "04" | xxd -r -p -seek 0x6246c - sof-mp-server
 
 # ignore connmode check - SVC_DirectConnect , some authorization check
 # 80AA6B7
