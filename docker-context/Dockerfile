@@ -72,6 +72,7 @@ RUN xvfb-run wine sof_ce_installer.exe /s /l=English /p=./sof-ce
 #cp sof-ce/Base/pak*.pak sof/base/
 
 # ------------------SOFDEMO----------------
+# PAK0.pak renamed to demo_pak0.pak
 # Get soflinux repo(this repo) contains sof_demo
 # Extract demo, copy demo pak0.pak into '/sof' as 'pak5.pak', move hex patches into '/sof'
 # why pak5.pak and pak6.pak demo and 1.06a? too much priority?

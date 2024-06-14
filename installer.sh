@@ -114,6 +114,8 @@ if [ ${SILENT} -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	fi
+	# copy files from container into install dir.
+	# runtime libraries
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/
@@ -122,6 +124,7 @@ if [ ${SILENT} -eq 0 ]; then
 			exit 1
 		fi
 	done
+	# resource paks
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
 		docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/
@@ -191,6 +194,10 @@ echo "recommended aliases to put into ~/.bash_aliases"
 echo 'alias sof-sp="~/.loki/sof-runtime/start_singleplayer.sh"
 alias sof-mp="~/.loki/sof-runtime/start_multiplayer.sh"
 alias sof-mp-s="~/.loki/sof-runtime/start_server.sh"'
+echo
+echo "ensure your system supports 32 bit libraries"
+echo "dependencys needed to run locally: libxext6, libx11-6, [your_glx_drivers]"
+echo "run: sudo apt update && sudo apt install libxext6:i386 libx11-6:i386"
 
 
 
