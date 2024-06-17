@@ -42,6 +42,10 @@ However, after countless hours of testing and debugging. It seems the incompatib
 
 If the distro is the same version as the host it still requires manual intervention by the user and thus to have knowledge of setting up the system.  Whereas if they did not use docker, they already have a functioning hardware accelerated system and its just a matter of installing the program.
 
+#### Appendum
+While there is graphics acceleration, there are no terminals which could connect to the container and allow you to view the game being played.  
+So the method that was used by my testing was exporting the XLib instructions of the client app(sof) to point to the WSL2 host xserver.  Which requires indirect opengl rendering.
+
 ### Docker useful when running server
 It could be useful to run a sof server inside a docker container though.  Because its very encapsulated and easily restartable etc.
 
