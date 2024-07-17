@@ -3,6 +3,9 @@ TLDR: This uses docker as an installer, but doesn't expect you to run the game i
 
 **An attempt to revive native linux versions of Soldier Of Fortune 1 first person shooter game.**
 
+## Spice it up
+[https://github.com/d3nd3/sof-plus-plus-nix](https://github.com/d3nd3/sof-plus-plus-nix)  
+Use this by LD_PRELOAD it, to gain added features and support for soflinux.
 ## Usage
 `cd soflinux`
 `./installer.sh`
