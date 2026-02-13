@@ -34,33 +34,26 @@
 # get all resources into one directory
 #---------------------------------------------
 FROM i386/ubuntu:bionic AS sofBuilder
-ARG MANUAL_CE=""
-#echo "deb [trusted=yes] http://ppa.launchpad.net/deadsnakes/ppa ubuntu bionic main" >> /etc/apt/sources.list
 RUN apt-get -y update && \
 apt-get install -y git xxd wine-stable xvfb \
 && rm -rf /var/lib/apt/lists/*
 
 RUN git config --global http.postBuffer 500M && git config --global http.maxRequestBuffer 100M && git config --global core.compression 0
 
-
 # ------------------SOF1.06a----------------
-# Get 1.06a , rename pak2.pak -> pak6.pak, 1.06 extracts to '/sof'
-
 RUN mkdir /sof && \
 	git clone https://github.com/liflg/sof_1.06a-english_x86 && \
 	tar -xvf sof_1.06a-english_x86/data/patch-1.06a.tar -C /sof && \
 	mv /sof/base/pak2.pak /sof/base/liflg_pak2.pak
 
-# automatic CE
-RUN if [ -z ${MANUAL_CE} ]; then \
-	apt-get -y update && apt-get -y install python3 python3-pip && pip3 install requests && rm -rf /var/list/apt/lists/*; \
-	echo "\nPlease Standby, we are grabbing SoF Community Edition, its around 600MB, this could take a while.\n"; \
-	git clone https://github.com/d3nd3/sof-ce-dl; \
-	python3 sof-ce-dl/get.py; \
-	fi
-# MANUAL_CE not empty, thus we copy it from context
-# If MANUAL_CE is set, it expands to become `.`
-COPY ${MANUAL_CE:+sof_ce_installer.exe} /
+COPY . /ctx/
+RUN if [ -f /ctx/sof_ce_installer.exe ]; then cp /ctx/sof_ce_installer.exe /; \
+else \
+	apt-get -y update && apt-get install -y python3 python3-pip && pip3 install requests && rm -rf /var/lib/apt/lists/* && \
+	echo "Grabbing SoF Community Edition (~600MB)..." && cd /tmp && git clone https://github.com/d3nd3/sof-ce-dl && python3 sof-ce-dl/get.py && \
+	(cp /tmp/sof_ce_installer.exe / 2>/dev/null || cp /tmp/sof-ce-dl/sof_ce_installer.exe /) || \
+	{ echo ""; echo "Auto download failed. Place sof_ce_installer.exe from sof1.org into docker-context/ and re-run the build."; exit 1; }; \
+fi
 
 # -------------SOF-COMMUNITYEDITION------------
 # Extract SoF-CE, uses wine and xvfb to do so, extracts to '/sof-ce'

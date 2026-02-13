@@ -10,7 +10,6 @@ if [ ! -d "docker-context" ];then
 fi
 
 # --build-arg RUN_DOCKER_CLIENT=1
-# --build-arg MANUAL_CE=1
 docker build -t sof-linux docker-context $@
 if ! [ $? -eq 0 ]; then
 	echo "failed build"

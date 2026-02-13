@@ -10,14 +10,12 @@ Use this by LD_PRELOAD it, to gain added features and support for soflinux.
 `cd soflinux`
 `./installer.sh`
 
+The build will try to download the SoF Community Edition installer automatically. If that fails, place `sof_ce_installer.exe` from sof1.org into `docker-context/` and re-run the build.
+
 ### Advanced Users Build Options
 *pass extra options to the `installer.sh` or the `docker-build.sh` script for extra control.*  
 #### `--build-arg RUN_DOCKER_CLIENT=1`
 If you intend to run the executables in a containerized state, through docker.  This will ensure mesa and pulseaudio are installed in the container, to help graphic and audio support. ( NOT RECOMMENDED ).
-
-#### `--build-arg MANUAL_CE=1`
-If you want to supply the Community Edition installer from sof1.org, instead of let the script download it.  
-You have to put the sof_ce_installer.exe into the docker-context folder.  And it has to be named that exactly : `sof_ce_installer.exe`.
 
 
 #### Running the game within docker
