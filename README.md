@@ -1,10 +1,50 @@
 # Soflinux-Podman
 
-Work in progress, still not suitable for work.
 
 
 
 
+
+
+
+Progress so far:
+
+
+
+
+
+
+
+
+
+
+- Tested on Fedora 44 KDE.
+
+
+
+
+
+
+
+
+The main change in this fork is that docker executions have been replaced by podman executions, leaving file names and folders names that include the name 'docker' untouched.
+
+
+
+
+
+
+
+On systems that are running Podman, the install.sh script can be executed without the need of installing Docker nor using aliases.
+
+
+
+
+
+
+
+
+Have fun!
 
 
 
