@@ -35,7 +35,7 @@ The main change in this fork is that docker executions have been replaced by pod
 
 
 
-On systems that are running Podman, the install.sh script can be executed without the need of installing Docker nor using aliases.
+On systems that are running Podman, the installer.sh script can be executed without the need of installing Docker nor using aliases.
 
 
 
