@@ -18,7 +18,7 @@ Progress so far:
 
 
 
-- Tested on Fedora 44 KDE.
+- Tested on Fedora 44 KDE, the process finishes and the game runs.
 
 
 
