@@ -18,7 +18,7 @@ Progress so far:
 
 
 
-- Tested on Fedora 44 KDE, the process finishes and the game runs.
+- Tested on Fedora 44 KDE: The process finishes and the game runs, being the only issue having to adjust the window size and lacking sound. The GOG version does have sound.
 
 
 
