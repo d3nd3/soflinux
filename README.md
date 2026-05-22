@@ -18,7 +18,7 @@ Progress so far:
 
 
 
-- Tested on Fedora 44 KDE: The process finishes and the game runs, being the only issue having to adjust the window size and lacking sound. The GOG version does have sound, thus this issue has its cause outside the installation process. Suggested flags and additional software have not been tested.
+- Tested on Fedora 44 KDE: The process finishes and the game runs, being the only issue having to adjust the window size and lacking sound. The GOG version does have sound, thus this issue has its cause outside the installation process being probably that Fedora no longer supports the dependencies for the audio of the game. Suggested flags and additional software have not been tested. Running the game inside a container has not been tested.
 
 
 
