@@ -10,7 +10,7 @@ if [ ! -d "docker-context" ];then
 fi
 
 # --build-arg RUN_DOCKER_CLIENT=1
-docker build -t sof-linux docker-context $@
+podman build -t sof-linux docker-context $@
 if ! [ $? -eq 0 ]; then
 	echo "failed build"
 	exit 1
@@ -23,11 +23,11 @@ echo "STANDBY: Copying demo and 1.06a pak to ~/.loki/sof-addons/ ..."
 # Ensuse directories exist.
 . docker-run/ensure-dirs.sh
 
-docker create --name temp-sof-linux sof-linux > /dev/null 2>&1
+podman create --name temp-sof-linux sof-linux > /dev/null 2>&1
 # extract these 2 pak files from the install because its bind mounted
-docker cp temp-sof-linux:/home/mullins/.loki/sof-addons/base/liflg_pak2.pak ~/.loki/sof-addons/base/
-docker cp temp-sof-linux:/home/mullins/.loki/sof-addons/base/demo_pak0.pak ~/.loki/sof-addons/base/
-docker rm temp-sof-linux > /dev/null 2>&1
+podman cp temp-sof-linux:/home/mullins/.loki/sof-addons/base/liflg_pak2.pak ~/.loki/sof-addons/base/
+podman cp temp-sof-linux:/home/mullins/.loki/sof-addons/base/demo_pak0.pak ~/.loki/sof-addons/base/
+podman rm temp-sof-linux > /dev/null 2>&1
 
 cp docker-context/won_key ~/.loki/sof/
 cp docker-context/default_video.cfg ~/.loki/sof/
