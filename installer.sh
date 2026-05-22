@@ -71,25 +71,25 @@ if [ ${SILENT} -eq 1 ]; then
 
 	echo "Building compatible libbsd library..."
 
-	docker build -t libbsd libbsd-context > /dev/null 2>&1
+	podman build -t libbsd libbsd-context > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	fi
 
-	docker create --name tmp-libbsd libbsd > /dev/null 2>&1
+	podman create --name tmp-libbsd libbsd > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	fi
 
-	docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0" > /dev/null 2>&1
+	podman cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0" > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	fi
 
-	docker rm tmp-libbsd > /dev/null 2>&1
+	podman rm tmp-libbsd > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
@@ -97,10 +97,10 @@ if [ ${SILENT} -eq 1 ]; then
 elif [ ${SILENT} -eq 0 ]; then
 	./docker-build.sh ${BUILD_ARGS}
 	echo "Building compatible libbsd library..."
-	docker build -t libbsd libbsd-context
-	docker create --name tmp-libbsd libbsd
-	docker cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0"
-	docker rm tmp-libbsd
+	podman build -t libbsd libbsd-context
+	podman create --name tmp-libbsd libbsd
+	podman cp tmp-libbsd:/libbsd/libbsd.so.0.2.0 "${INSTALL_DIR}/libbsd.so.0"
+	podman rm tmp-libbsd
 fi
 
 echo "Installing..."
@@ -109,7 +109,7 @@ echo "Installing..."
 # and folders are ensured to exist. ~/.loki/sof ~/.loki/sof-addons/base
 if [ ${SILENT} -eq 0 ]; then
 	# default not silent
-	docker create --name temp-sof-linux sof-linux
+	podman create --name temp-sof-linux sof-linux
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
@@ -118,7 +118,7 @@ if [ ${SILENT} -eq 0 ]; then
 	# runtime libraries
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
-		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/
+		podman cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
@@ -127,13 +127,13 @@ if [ ${SILENT} -eq 0 ]; then
 	# resource paks
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
-		docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/
+		podman cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
 		fi
 	done
-	docker rm temp-sof-linux
+	podman rm temp-sof-linux
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
@@ -143,14 +143,14 @@ if [ ${SILENT} -eq 0 ]; then
 	chmod +x ${INSTALL_DIR}/start_singleplayer.sh ${INSTALL_DIR}/start_server.sh ${INSTALL_DIR}/start_multiplayer.sh
 elif [ ${SILENT} -eq 1 ]; then
 	# silent
-	docker create --name temp-sof-linux sof-linux > /dev/null 2>&1
+	podman create --name temp-sof-linux sof-linux > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
 	fi
 	for FILE in libSDL-1.1.so.0 libTitan.so liboasnd.so libopenal-0.0.so ref_gl.so sof-bin sof-mp sof-mp-server
 	do
-		docker cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/ > /dev/null 2>&1
+		podman cp temp-sof-linux:/home/mullins/sof/${FILE} ${INSTALL_DIR}/ > /dev/null 2>&1
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
@@ -158,13 +158,13 @@ elif [ ${SILENT} -eq 1 ]; then
 	done
 	for FILE in basicpack2015v2.pak gamex86.so player.so pak0.pak pak1.pak pak2.pak pak3.pak gs.pak
 	do
-		docker cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/ > /dev/null 2>&1
+		podman cp temp-sof-linux:/home/mullins/sof/static_files/base/${FILE} ${INSTALL_DIR}/static_files/base/ > /dev/null 2>&1
 		if ! [ $? -eq 0 ]; then
 			echo "failed build"
 			exit 1
 		fi
 	done
-	docker rm temp-sof-linux > /dev/null 2>&1
+	podman rm temp-sof-linux > /dev/null 2>&1
 	if ! [ $? -eq 0 ]; then
 		echo "failed build"
 		exit 1
