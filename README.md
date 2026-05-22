@@ -1,3 +1,13 @@
+# Soflinux-Podman
+
+Work in progress, still not suitable for work.
+
+
+
+
+
+
+
 # SoF1 Linux
 TLDR: This uses docker as an installer, but doesn't expect you to run the game inside a container. Hardware accelerated gaming is better outside of a container.  
 
