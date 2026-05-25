@@ -15,7 +15,7 @@ fi
 . $(dirname "${BASH_SOURCE[0]}")/pre-run.sh
 LAUNCH_OPTS="/bin/bash"
 
-$TOSUDO podman run -it \
+$TOSUDO docker run -it \
 --platform linux/i386 \
 --env DISPLAY=$DISPLAY \
 --device /dev/dri \
