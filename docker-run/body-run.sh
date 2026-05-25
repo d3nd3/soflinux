@@ -65,7 +65,7 @@ fi
 # TRYING TO MAKE CONTAINER'S PULSEAUDIO USE PASSTHROUGH BECAUSE LATENCY IS TOO HIGH ATM.
 
 #$DEVSND \
-$TOSUDO podman run -it \
+$TOSUDO docker run -it \
 --platform linux/i386 \
 --env DISPLAY=$DISPLAY \
 --device /dev/dri \
