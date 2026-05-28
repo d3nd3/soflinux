@@ -1,4 +1,4 @@
-# Soflinux-Podman
+# Soflinux-Podman (soflinux-podman folder by user Marchosias140)
 
 
 
@@ -48,7 +48,7 @@ Have fun!
 
 
 
-# SoF1 Linux
+# SoF1 Linux (original docker solution)
 TLDR: This uses docker as an installer, but doesn't expect you to run the game inside a container. Hardware accelerated gaming is better outside of a container.  
 
 **An attempt to revive native linux versions of Soldier Of Fortune 1 first person shooter game.**
