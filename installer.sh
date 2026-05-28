@@ -200,5 +200,3 @@ echo "dependencys needed to run locally: libxext6, libx11-6, [your_glx_drivers]"
 echo "run: sudo apt update && sudo apt install libxext6:i386 libx11-6:i386"
 
 
-
-
